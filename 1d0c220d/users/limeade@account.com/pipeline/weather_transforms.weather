@@ -1,0 +1,1 @@
+{"positions":[{"name":"sqltable_0","type":"SQLTable","xCord":"346px","yCord":"123px"},{"name":"projection_1","type":"Projection","xCord":"721px","yCord":"146px"}],"connections":[{"source":"sqltable_0","target":"projection_1","targetType":0}]}

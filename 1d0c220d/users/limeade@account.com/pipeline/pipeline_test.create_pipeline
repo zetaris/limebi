@@ -1,0 +1,1 @@
+{"positions":[{"name":"azure_mssql_customer","type":"DataSource","xCord":"28px","yCord":"58px"},{"name":"projection_0","type":"Projection","xCord":"400px","yCord":"121px"}],"connections":[{"source":"azure_mssql_customer","target":"projection_0","targetType":0}]}

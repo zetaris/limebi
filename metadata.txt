@@ -1,0 +1,3908 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.5
+-- Dumped by pg_dump version 13.5
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: adaptive_offsite_cache_policy; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.adaptive_offsite_cache_policy (
+    table_type character varying(20) NOT NULL,
+    baseline bigint NOT NULL,
+    cache_storage character varying(10) NOT NULL,
+    policy character varying(10) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.adaptive_offsite_cache_policy OWNER TO rds_admin;
+
+--
+-- Name: assigned_data_mart_to_role; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_data_mart_to_role (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_mart_id bigint NOT NULL,
+    fk_lightning_role_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_data_mart_to_role OWNER TO rds_admin;
+
+--
+-- Name: assigned_data_mart_to_user; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_data_mart_to_user (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_mart_id bigint NOT NULL,
+    fk_lightning_user_id character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.assigned_data_mart_to_user OWNER TO rds_admin;
+
+--
+-- Name: assigned_data_source_to_role; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_data_source_to_role (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_source_id bigint NOT NULL,
+    fk_lightning_role_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_data_source_to_role OWNER TO rds_admin;
+
+--
+-- Name: assigned_data_source_to_user; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_data_source_to_user (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_source_id bigint NOT NULL,
+    fk_lightning_user_id character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.assigned_data_source_to_user OWNER TO rds_admin;
+
+--
+-- Name: assigned_database_to_role; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_database_to_role (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_lightning_database_id bigint NOT NULL,
+    fk_lightning_role_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_database_to_role OWNER TO rds_admin;
+
+--
+-- Name: assigned_database_to_user; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_database_to_user (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_lightning_database_id bigint NOT NULL,
+    fk_lightning_user_id character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.assigned_database_to_user OWNER TO rds_admin;
+
+--
+-- Name: assigned_dw_data_mart; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_dw_data_mart (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_mart_id bigint NOT NULL,
+    fk_data_warehouse_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_dw_data_mart OWNER TO rds_admin;
+
+--
+-- Name: assigned_dw_data_source; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_dw_data_source (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_source_id bigint,
+    fk_data_warehouse_id bigint
+);
+
+
+ALTER TABLE public.assigned_dw_data_source OWNER TO rds_admin;
+
+--
+-- Name: assigned_dw_database; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_dw_database (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_warehouse_id bigint NOT NULL,
+    fk_lightning_database_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_dw_database OWNER TO rds_admin;
+
+--
+-- Name: assigned_dw_pipeline; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_dw_pipeline (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_warehouse_id bigint,
+    fk_pipeline_id bigint
+);
+
+
+ALTER TABLE public.assigned_dw_pipeline OWNER TO rds_admin;
+
+--
+-- Name: assigned_dw_role; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_dw_role (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_warehouse_id bigint NOT NULL,
+    fk_lightning_role_name bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_dw_role OWNER TO rds_admin;
+
+--
+-- Name: assigned_dw_schema_store_view; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_dw_schema_store_view (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_warehouse_id bigint NOT NULL,
+    fk_schema_store_view_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_dw_schema_store_view OWNER TO rds_admin;
+
+--
+-- Name: assigned_dw_streaming; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_dw_streaming (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_warehouse_id bigint NOT NULL,
+    fk_streaming_datasource_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_dw_streaming OWNER TO rds_admin;
+
+--
+-- Name: assigned_dw_user; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_dw_user (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_data_warehouse_id bigint,
+    fk_lightning_user_email character varying(255)
+);
+
+
+ALTER TABLE public.assigned_dw_user OWNER TO rds_admin;
+
+--
+-- Name: assigned_pipeline_to_role; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_pipeline_to_role (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_lightning_role_id bigint NOT NULL,
+    fk_pipeline_container_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_pipeline_to_role OWNER TO rds_admin;
+
+--
+-- Name: assigned_pipeline_to_user; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_pipeline_to_user (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_lightning_user_id character varying(255) NOT NULL,
+    fk_pipeline_container_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_pipeline_to_user OWNER TO rds_admin;
+
+--
+-- Name: assigned_role; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_role (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    assigned_by character varying(128) NOT NULL,
+    fk_lightning_role_name bigint NOT NULL,
+    fk_lightning_user_name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.assigned_role OWNER TO rds_admin;
+
+--
+-- Name: assigned_schema_store_view_to_role; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_schema_store_view_to_role (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_lightning_role_id bigint NOT NULL,
+    fk_schema_store_view_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_schema_store_view_to_role OWNER TO rds_admin;
+
+--
+-- Name: assigned_schema_store_view_to_user; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.assigned_schema_store_view_to_user (
+    id bigint NOT NULL,
+    assigned_at timestamp without time zone NOT NULL,
+    fk_lightning_user_id character varying(255) NOT NULL,
+    fk_schema_store_view_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.assigned_schema_store_view_to_user OWNER TO rds_admin;
+
+--
+-- Name: data_mart; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.data_mart (
+    id bigint NOT NULL,
+    case_sensitive_name character varying(255) NOT NULL,
+    default_view character varying(2048),
+    description character varying(255),
+    name character varying(255) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.data_mart OWNER TO rds_admin;
+
+--
+-- Name: data_mart_table; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.data_mart_table (
+    id bigint NOT NULL,
+    case_sensitive_name character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    source_table character varying(255) NOT NULL,
+    fk_data_mart_id bigint
+);
+
+
+ALTER TABLE public.data_mart_table OWNER TO rds_admin;
+
+--
+-- Name: data_mart_table_association; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.data_mart_table_association (
+    id bigint NOT NULL,
+    source_column character varying(255) NOT NULL,
+    target_column character varying(255) NOT NULL,
+    fk_data_mart_id bigint,
+    fk_source_table_id bigint,
+    fk_target_table_id bigint
+);
+
+
+ALTER TABLE public.data_mart_table_association OWNER TO rds_admin;
+
+--
+-- Name: data_mart_table_schema; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.data_mart_table_schema (
+    id bigint NOT NULL,
+    real_column_name character varying(255) NOT NULL,
+    virtual_name character varying(255),
+    fk_data_mart_table_id bigint
+);
+
+
+ALTER TABLE public.data_mart_table_schema OWNER TO rds_admin;
+
+--
+-- Name: data_warehouse; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.data_warehouse (
+    id bigint NOT NULL,
+    case_sensitive_name character varying(255) NOT NULL,
+    cloud_id character varying(255),
+    cluster_size character varying(255) NOT NULL,
+    dw_type character varying(255),
+    end_at timestamp without time zone,
+    gui_endpoint character varying(255),
+    gui_ip character varying(255),
+    ligt_endpoint character varying(255),
+    name character varying(255) NOT NULL,
+    spark_rest_api character varying(255),
+    start_at timestamp without time zone,
+    status character varying(255),
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.data_warehouse OWNER TO rds_admin;
+
+--
+-- Name: data_warehouse_history; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.data_warehouse_history (
+    id bigint NOT NULL,
+    event character varying(255) NOT NULL,
+    "time" timestamp without time zone NOT NULL,
+    fk_data_warehouse_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.data_warehouse_history OWNER TO rds_admin;
+
+--
+-- Name: datasource; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource (
+    id bigint NOT NULL,
+    case_sensitive_name character varying(255) NOT NULL,
+    description character varying(255),
+    ingest_status character varying(255),
+    name character varying(255) NOT NULL,
+    push_type_endpoint character varying(255),
+    refresh_cycle character varying(255),
+    remote_name character varying(255),
+    source_type character varying(255) NOT NULL,
+    under_refresh boolean,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.datasource OWNER TO rds_admin;
+
+--
+-- Name: datasource_cache_strategy; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_cache_strategy (
+    id bigint NOT NULL,
+    fk_datasource_relation_id bigint
+);
+
+
+ALTER TABLE public.datasource_cache_strategy OWNER TO rds_admin;
+
+--
+-- Name: datasource_change_history; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_change_history (
+    id bigint NOT NULL,
+    description character varying(255) NOT NULL,
+    entity_type character varying(255) NOT NULL,
+    operation character varying(255) NOT NULL,
+    update_at timestamp without time zone NOT NULL,
+    fk_datasource_id bigint
+);
+
+
+ALTER TABLE public.datasource_change_history OWNER TO rds_admin;
+
+--
+-- Name: datasource_option; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_option (
+    datasource_type character varying(31) NOT NULL,
+    id bigint NOT NULL,
+    option_id character varying(255) NOT NULL,
+    option_key character varying(255) NOT NULL,
+    option_value character varying(255),
+    fk_datasource_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.datasource_option OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation (
+    relation_type character varying(31) NOT NULL,
+    id bigint NOT NULL,
+    cache_baseline bigint,
+    cache_policy character varying(10),
+    cache_storage character varying(10),
+    cache_type character varying(10),
+    case_sensitive_name character varying(255) NOT NULL,
+    description character varying(4096),
+    materialized_table character varying(124),
+    name character varying(255) NOT NULL,
+    target_schema character varying(255),
+    fk_datasource_id bigint
+);
+
+
+ALTER TABLE public.datasource_relation OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation_column_histogram; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation_column_histogram (
+    id bigint NOT NULL,
+    lower_bound character varying(255) NOT NULL,
+    rec_count bigint NOT NULL,
+    upper_bound character varying(255) NOT NULL,
+    fk_datasource_relation_column_stat_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.datasource_relation_column_histogram OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation_column_stat; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation_column_stat (
+    id bigint NOT NULL,
+    analyzed_time timestamp without time zone NOT NULL,
+    avg_val_len double precision,
+    cardinality bigint NOT NULL,
+    max_val_len double precision,
+    min_val_len double precision,
+    null_count bigint NOT NULL,
+    fk_datasource_relation_schema_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.datasource_relation_column_stat OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation_index_history; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation_index_history (
+    id bigint NOT NULL,
+    cardinality bigint NOT NULL,
+    indexed_columns character varying(4096) NOT NULL,
+    indexed_time timestamp without time zone NOT NULL,
+    size_in_bytes bigint NOT NULL,
+    fk_datasource_relation_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.datasource_relation_index_history OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation_part; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation_part (
+    id bigint NOT NULL,
+    part_column character varying(255) NOT NULL,
+    counts integer,
+    lowerbound bigint,
+    upperbound bigint,
+    fk_datasource_relation_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.datasource_relation_part OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation_schema; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation_schema (
+    id bigint NOT NULL,
+    autoincrement boolean,
+    column_name character varying(255) NOT NULL,
+    data_type character varying(2048) NOT NULL,
+    description character varying(4096),
+    index_name character varying(255),
+    nullable boolean NOT NULL,
+    org_column_name character varying(255) NOT NULL,
+    primary_key boolean,
+    reference_column character varying(255),
+    reference_table character varying(255),
+    fk_datasource_relation_id bigint
+);
+
+
+ALTER TABLE public.datasource_relation_schema OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation_schema_tag; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation_schema_tag (
+    id bigint NOT NULL,
+    tag character varying(255) NOT NULL,
+    fk_datasource_relation_schema_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.datasource_relation_schema_tag OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation_table; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation_table (
+    distribution_type character varying(255) NOT NULL,
+    source_table character varying(255) NOT NULL,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.datasource_relation_table OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation_table_stat; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation_table_stat (
+    id bigint NOT NULL,
+    analyzed_time timestamp without time zone NOT NULL,
+    cardinality bigint NOT NULL,
+    size_in_bytes bigint NOT NULL,
+    fk_datasource_table_relation_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.datasource_relation_table_stat OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation_tag; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation_tag (
+    id bigint NOT NULL,
+    tag character varying(255) NOT NULL,
+    fk_datasource_relation_id bigint
+);
+
+
+ALTER TABLE public.datasource_relation_tag OWNER TO rds_admin;
+
+--
+-- Name: datasource_relation_view; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.datasource_relation_view (
+    query character varying(16384) NOT NULL,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.datasource_relation_view OWNER TO rds_admin;
+
+--
+-- Name: entity_limit; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.entity_limit (
+    id bigint NOT NULL,
+    size character varying(255) NOT NULL,
+    value integer NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.entity_limit OWNER TO rds_admin;
+
+--
+-- Name: filestore_table; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.filestore_table (
+    id bigint NOT NULL,
+    case_sensitive_name character varying(255) NOT NULL,
+    description character varying(255),
+    file_path character varying(512) NOT NULL,
+    format character varying(255) NOT NULL,
+    materialized_table character varying(255),
+    name character varying(255) NOT NULL,
+    fk_lightning_database_id bigint
+);
+
+
+ALTER TABLE public.filestore_table OWNER TO rds_admin;
+
+--
+-- Name: filestore_table_option; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.filestore_table_option (
+    id bigint NOT NULL,
+    option_id character varying(255) NOT NULL,
+    option_key character varying(255) NOT NULL,
+    option_value character varying(255),
+    fk_filestore_table_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.filestore_table_option OWNER TO rds_admin;
+
+--
+-- Name: filestore_table_schema; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.filestore_table_schema (
+    id bigint NOT NULL,
+    column_name character varying(255) NOT NULL,
+    data_type character varying(4096) NOT NULL,
+    nullable boolean,
+    org_column_name character varying(255) NOT NULL,
+    fk_filestore_table_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.filestore_table_schema OWNER TO rds_admin;
+
+--
+-- Name: granted_role; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.granted_role (
+    id bigint NOT NULL,
+    granted_at timestamp without time zone NOT NULL,
+    granted_by character varying(255) NOT NULL,
+    privilege character varying(255) NOT NULL,
+    table_identifier character varying(255) NOT NULL,
+    with_grant_option boolean NOT NULL,
+    fk_lightning_role_name bigint NOT NULL
+);
+
+
+ALTER TABLE public.granted_role OWNER TO rds_admin;
+
+--
+-- Name: granted_user; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.granted_user (
+    id bigint NOT NULL,
+    granted_at timestamp without time zone NOT NULL,
+    granted_by character varying(255) NOT NULL,
+    privilege character varying(255) NOT NULL,
+    table_identifier character varying(255) NOT NULL,
+    with_grant_option boolean NOT NULL,
+    fk_lightning_user_email character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.granted_user OWNER TO rds_admin;
+
+--
+-- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: rds_admin
+--
+
+CREATE SEQUENCE public.hibernate_sequence
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hibernate_sequence OWNER TO rds_admin;
+
+--
+-- Name: http_request_param; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.http_request_param (
+    id bigint NOT NULL,
+    param_id character varying(255) NOT NULL,
+    param_key character varying(255) NOT NULL,
+    param_value character varying(255),
+    fk_oauth_id bigint
+);
+
+
+ALTER TABLE public.http_request_param OWNER TO rds_admin;
+
+--
+-- Name: imported_certificates; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.imported_certificates (
+    id bigint NOT NULL,
+    alias character varying(255) NOT NULL,
+    created_at date,
+    created_by character varying(255),
+    fingerprint character varying(255) NOT NULL,
+    issuer_dn character varying(255) NOT NULL,
+    valid_from date NOT NULL,
+    valid_to date NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.imported_certificates OWNER TO rds_admin;
+
+--
+-- Name: ldap_configuration; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.ldap_configuration (
+    id bigint NOT NULL,
+    attribute character varying(256) NOT NULL,
+    description character varying(256),
+    dn character varying(256) NOT NULL,
+    is_enabled boolean NOT NULL,
+    name character varying(64) NOT NULL,
+    password character varying(256) NOT NULL,
+    principal character varying(256) NOT NULL,
+    ldap_url character varying(256) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.ldap_configuration OWNER TO rds_admin;
+
+--
+-- Name: lightning_database; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.lightning_database (
+    id bigint NOT NULL,
+    case_sensitive_name character varying(255) NOT NULL,
+    description character varying(255),
+    name character varying(255) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.lightning_database OWNER TO rds_admin;
+
+--
+-- Name: lightning_database_option; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.lightning_database_option (
+    id bigint NOT NULL,
+    option_key character varying(255) NOT NULL,
+    option_value character varying(255),
+    fk_lightning_database_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.lightning_database_option OWNER TO rds_admin;
+
+--
+-- Name: lightning_rest_table; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.lightning_rest_table (
+    id bigint NOT NULL,
+    case_sensitive_name character varying(255) NOT NULL,
+    comment character varying(255),
+    description character varying(255),
+    materialized_table character varying(255),
+    name character varying(255) NOT NULL,
+    fk_lightning_database_id bigint
+);
+
+
+ALTER TABLE public.lightning_rest_table OWNER TO rds_admin;
+
+--
+-- Name: lightning_rest_table_option; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.lightning_rest_table_option (
+    id bigint NOT NULL,
+    option_key character varying(255) NOT NULL,
+    option_value character varying(2048),
+    param_id character varying(255) NOT NULL,
+    fk_datasource_rest_relation_id bigint
+);
+
+
+ALTER TABLE public.lightning_rest_table_option OWNER TO rds_admin;
+
+--
+-- Name: lightning_rest_table_schema; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.lightning_rest_table_schema (
+    id bigint NOT NULL,
+    column_name character varying(255) NOT NULL,
+    data_type character varying(32000) NOT NULL,
+    nullable boolean,
+    org_column_name character varying(255) NOT NULL,
+    fk_lightning_rest_table_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.lightning_rest_table_schema OWNER TO rds_admin;
+
+--
+-- Name: lightning_role; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.lightning_role (
+    id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    created_by character varying(255) NOT NULL,
+    description character varying(255),
+    is_ldap boolean,
+    name character varying(128) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.lightning_role OWNER TO rds_admin;
+
+--
+-- Name: lightning_user; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.lightning_user (
+    email character varying(255) NOT NULL,
+    activated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    is_ldap boolean,
+    is_reset boolean NOT NULL,
+    level character varying(255),
+    name character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    user_hash character varying(255) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.lightning_user OWNER TO rds_admin;
+
+--
+-- Name: oauth; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.oauth (
+    id bigint NOT NULL,
+    content_type character varying(255),
+    endpoint character varying(255) NOT NULL,
+    http_encoding character varying(255) NOT NULL,
+    method character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.oauth OWNER TO rds_admin;
+
+--
+-- Name: offsite_cache_history; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.offsite_cache_history (
+    id bigint NOT NULL,
+    cache_action character varying(40) NOT NULL,
+    end_time timestamp without time zone NOT NULL,
+    rec_count bigint NOT NULL,
+    source_table character varying(256) NOT NULL,
+    start_time timestamp without time zone NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.offsite_cache_history OWNER TO rds_admin;
+
+--
+-- Name: offsite_cache_strategy; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.offsite_cache_strategy (
+    relation_type character varying(31) NOT NULL,
+    id bigint NOT NULL,
+    cached_at timestamp without time zone,
+    delta_column character varying(124),
+    delta_cycle character varying(10),
+    expire_in_sec bigint NOT NULL,
+    source_table character varying(256) NOT NULL,
+    under_cache boolean,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.offsite_cache_strategy OWNER TO rds_admin;
+
+--
+-- Name: organisation; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.organisation (
+    id bigint NOT NULL,
+    address character varying(255) NOT NULL,
+    case_insensitive_name character varying(255) NOT NULL,
+    country_code character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    mobile_number character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    organisation_id character varying(255) NOT NULL,
+    partner_id character varying(64),
+    phone_number character varying(255) NOT NULL,
+    post_code character varying(255) NOT NULL,
+    unique_id character varying(128)
+);
+
+
+ALTER TABLE public.organisation OWNER TO rds_admin;
+
+--
+-- Name: organisation_status; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.organisation_status (
+    id bigint NOT NULL,
+    changed_at timestamp without time zone NOT NULL,
+    reason character varying(255),
+    status character varying(255) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.organisation_status OWNER TO rds_admin;
+
+--
+-- Name: pipeline_aggregation; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_aggregation (
+    filter_expression character varying(2048),
+    group_expression character varying(512),
+    having_expression character varying(512),
+    order_by character varying(512),
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.pipeline_aggregation OWNER TO rds_admin;
+
+--
+-- Name: pipeline_container; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_container (
+    id bigint NOT NULL,
+    case_sensitive_name character varying(64) NOT NULL,
+    description character varying(256),
+    name character varying(64) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.pipeline_container OWNER TO rds_admin;
+
+--
+-- Name: pipeline_datasource; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_datasource (
+    datasource character varying(128),
+    datasource_table character varying(64),
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.pipeline_datasource OWNER TO rds_admin;
+
+--
+-- Name: pipeline_join; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_join (
+    filter_expression character varying(2048),
+    join_predicate character varying(512),
+    join_tables character varying(256),
+    order_by character varying(512),
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.pipeline_join OWNER TO rds_admin;
+
+--
+-- Name: pipeline_node; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_node (
+    pipeline_type character varying(31) NOT NULL,
+    id bigint NOT NULL,
+    case_sensitive_name character varying(255) NOT NULL,
+    description character varying(256),
+    name character varying(255) NOT NULL,
+    fk_pipeline_relation_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.pipeline_node OWNER TO rds_admin;
+
+--
+-- Name: pipeline_node_property; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_node_property (
+    id bigint NOT NULL,
+    property_key character varying(64) NOT NULL,
+    property_value character varying(1024),
+    fk_pipeline_node_id bigint
+);
+
+
+ALTER TABLE public.pipeline_node_property OWNER TO rds_admin;
+
+--
+-- Name: pipeline_node_schema; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_node_schema (
+    id bigint NOT NULL,
+    column_alias character varying(255),
+    column_name character varying(255) NOT NULL,
+    data_type character varying(2048) NOT NULL,
+    sql_expression character varying(4096),
+    fk_pipeline_node_id bigint
+);
+
+
+ALTER TABLE public.pipeline_node_schema OWNER TO rds_admin;
+
+--
+-- Name: pipeline_projection; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_projection (
+    filter_expression character varying(2048),
+    order_by character varying(512),
+    windows_spec character varying(2048),
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.pipeline_projection OWNER TO rds_admin;
+
+--
+-- Name: pipeline_relation; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_relation (
+    id bigint NOT NULL,
+    case_sensitive_name character varying(128) NOT NULL,
+    description character varying(256),
+    name character varying(128) NOT NULL,
+    fk_pipeline_container_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.pipeline_relation OWNER TO rds_admin;
+
+--
+-- Name: pipeline_set; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_set (
+    allow_missing_col boolean NOT NULL,
+    by_name boolean NOT NULL,
+    filter_expression character varying(2048),
+    is_all boolean NOT NULL,
+    is_distinct boolean NOT NULL,
+    order_by character varying(512),
+    set_tables character varying(512) NOT NULL,
+    set_type character varying(32) NOT NULL,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.pipeline_set OWNER TO rds_admin;
+
+--
+-- Name: pipeline_simple_dq; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_simple_dq (
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.pipeline_simple_dq OWNER TO rds_admin;
+
+--
+-- Name: pipeline_simple_dq_rule; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_simple_dq_rule (
+    id bigint NOT NULL,
+    columns character varying(128) NOT NULL,
+    expression character varying(128),
+    filter character varying(128),
+    name character varying(64) NOT NULL,
+    fk_pipeline_simple_dq_id bigint
+);
+
+
+ALTER TABLE public.pipeline_simple_dq_rule OWNER TO rds_admin;
+
+--
+-- Name: pipeline_sink; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_sink (
+    sink_type character varying(20) NOT NULL,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.pipeline_sink OWNER TO rds_admin;
+
+--
+-- Name: pipeline_sqltable; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.pipeline_sqltable (
+    source_tables character varying(256),
+    sql_query character varying(8192) NOT NULL,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.pipeline_sqltable OWNER TO rds_admin;
+
+--
+-- Name: push_datasource_topic; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.push_datasource_topic (
+    id bigint NOT NULL,
+    partition integer NOT NULL,
+    topic character varying(255) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.push_datasource_topic OWNER TO rds_admin;
+
+--
+-- Name: push_datasource_topic_option; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.push_datasource_topic_option (
+    id bigint NOT NULL,
+    option_key character varying(255) NOT NULL,
+    option_value character varying(255),
+    fk_push_datasource_topic_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.push_datasource_topic_option OWNER TO rds_admin;
+
+--
+-- Name: rest_oauth; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.rest_oauth (
+    rest_table_id bigint NOT NULL,
+    oauth_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.rest_oauth OWNER TO rds_admin;
+
+--
+-- Name: schema_store_view; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.schema_store_view (
+    id bigint NOT NULL,
+    description character varying(255),
+    generator character varying(64),
+    materialized_table character varying(255),
+    name character varying(255) NOT NULL,
+    query character varying(16384) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.schema_store_view OWNER TO rds_admin;
+
+--
+-- Name: schema_store_view_schema; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.schema_store_view_schema (
+    id bigint NOT NULL,
+    column_name character varying(255) NOT NULL,
+    data_type character varying(2048) NOT NULL,
+    fk_schema_store_view_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.schema_store_view_schema OWNER TO rds_admin;
+
+--
+-- Name: schemastore_view_cache_strategy; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.schemastore_view_cache_strategy (
+    id bigint NOT NULL,
+    fk_schemastore_view_id bigint
+);
+
+
+ALTER TABLE public.schemastore_view_cache_strategy OWNER TO rds_admin;
+
+--
+-- Name: streaming_datasource; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.streaming_datasource (
+    table_type character varying(31) NOT NULL,
+    id bigint NOT NULL,
+    case_sensitive_name character varying(255) NOT NULL,
+    json_schema character varying(4096) NOT NULL,
+    name character varying(255) NOT NULL,
+    fk_organisation_id bigint
+);
+
+
+ALTER TABLE public.streaming_datasource OWNER TO rds_admin;
+
+--
+-- Name: streaming_datasource_aggr_table; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.streaming_datasource_aggr_table (
+    output_format character varying(255) NOT NULL,
+    output_mode character varying(255) NOT NULL,
+    query character varying(4096) NOT NULL,
+    id bigint NOT NULL,
+    fk_streaming_datasource_raw_table_id bigint
+);
+
+
+ALTER TABLE public.streaming_datasource_aggr_table OWNER TO rds_admin;
+
+--
+-- Name: streaming_datasource_option; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.streaming_datasource_option (
+    id bigint NOT NULL,
+    is_input boolean NOT NULL,
+    option_key character varying(255) NOT NULL,
+    option_value character varying(2048),
+    fk_streaming_datasource_id bigint NOT NULL
+);
+
+
+ALTER TABLE public.streaming_datasource_option OWNER TO rds_admin;
+
+--
+-- Name: streaming_datasource_raw_table; Type: TABLE; Schema: public; Owner: rds_admin
+--
+
+CREATE TABLE public.streaming_datasource_raw_table (
+    input_format character varying(255) NOT NULL,
+    input_sample character varying(4096) NOT NULL,
+    input_source character varying(255) NOT NULL,
+    id bigint NOT NULL
+);
+
+
+ALTER TABLE public.streaming_datasource_raw_table OWNER TO rds_admin;
+
+--
+-- Data for Name: adaptive_offsite_cache_policy; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.adaptive_offsite_cache_policy (table_type, baseline, cache_storage, policy, fk_organisation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_data_mart_to_role; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_data_mart_to_role (id, assigned_at, fk_data_mart_id, fk_lightning_role_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_data_mart_to_user; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_data_mart_to_user (id, assigned_at, fk_data_mart_id, fk_lightning_user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_data_source_to_role; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_data_source_to_role (id, assigned_at, fk_data_source_id, fk_lightning_role_id) FROM stdin;
+186	2022-02-04 02:58:35.082	28	25
+\.
+
+
+--
+-- Data for Name: assigned_data_source_to_user; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_data_source_to_user (id, assigned_at, fk_data_source_id, fk_lightning_user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_database_to_role; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_database_to_role (id, assigned_at, fk_lightning_database_id, fk_lightning_role_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_database_to_user; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_database_to_user (id, assigned_at, fk_lightning_database_id, fk_lightning_user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_dw_data_mart; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_dw_data_mart (id, assigned_at, fk_data_mart_id, fk_data_warehouse_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_dw_data_source; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_dw_data_source (id, assigned_at, fk_data_source_id, fk_data_warehouse_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_dw_database; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_dw_database (id, assigned_at, fk_data_warehouse_id, fk_lightning_database_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_dw_pipeline; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_dw_pipeline (id, assigned_at, fk_data_warehouse_id, fk_pipeline_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_dw_role; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_dw_role (id, assigned_at, fk_data_warehouse_id, fk_lightning_role_name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_dw_schema_store_view; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_dw_schema_store_view (id, assigned_at, fk_data_warehouse_id, fk_schema_store_view_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_dw_streaming; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_dw_streaming (id, assigned_at, fk_data_warehouse_id, fk_streaming_datasource_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_dw_user; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_dw_user (id, assigned_at, fk_data_warehouse_id, fk_lightning_user_email) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_pipeline_to_role; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_pipeline_to_role (id, assigned_at, fk_lightning_role_id, fk_pipeline_container_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_pipeline_to_user; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_pipeline_to_user (id, assigned_at, fk_lightning_user_id, fk_pipeline_container_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_role; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_role (id, assigned_at, assigned_by, fk_lightning_role_name, fk_lightning_user_name) FROM stdin;
+5	2022-02-04 02:19:47.908	admin	3	ADMIN@DEFAULT.COM
+\.
+
+
+--
+-- Data for Name: assigned_schema_store_view_to_role; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_schema_store_view_to_role (id, assigned_at, fk_lightning_role_id, fk_schema_store_view_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: assigned_schema_store_view_to_user; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.assigned_schema_store_view_to_user (id, assigned_at, fk_lightning_user_id, fk_schema_store_view_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: data_mart; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.data_mart (id, case_sensitive_name, default_view, description, name, fk_organisation_id) FROM stdin;
+143	brian	\N	brian	BRIAN	23
+\.
+
+
+--
+-- Data for Name: data_mart_table; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.data_mart_table (id, case_sensitive_name, name, source_table, fk_data_mart_id) FROM stdin;
+144	nation	NATION	AZURE_MSSQL.nation	143
+149	part	PART	AZURE_MSSQL.part	143
+\.
+
+
+--
+-- Data for Name: data_mart_table_association; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.data_mart_table_association (id, source_column, target_column, fk_data_mart_id, fk_source_table_id, fk_target_table_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: data_mart_table_schema; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.data_mart_table_schema (id, real_column_name, virtual_name, fk_data_mart_table_id) FROM stdin;
+150	n_nationkey	n_nationkey	144
+151	p_partkey	p_partkey	149
+152	p_name	p_name	149
+153	p_mfgr	p_mfgr	149
+154	p_brand	p_brand	149
+155	p_type	p_type	149
+156	p_size	p_size	149
+157	p_container	p_container	149
+158	p_retailprice	p_retailprice	149
+159	p_comment	p_comment	149
+160	n_name	n_name	144
+161	n_regionkey	n_regionkey	144
+162	n_comment	n_comment	144
+\.
+
+
+--
+-- Data for Name: data_warehouse; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.data_warehouse (id, case_sensitive_name, cloud_id, cluster_size, dw_type, end_at, gui_endpoint, gui_ip, ligt_endpoint, name, spark_rest_api, start_at, status, fk_organisation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: data_warehouse_history; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.data_warehouse_history (id, event, "time", fk_data_warehouse_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: datasource; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource (id, case_sensitive_name, description, ingest_status, name, push_type_endpoint, refresh_cycle, remote_name, source_type, under_refresh, fk_organisation_id) FROM stdin;
+6	fusiondb	Zetaris Massive Parallel Processing Database	C	FUSIONDB	\N	WEEKLY	\N	PULL	f	1
+28	AZURE_MSSQL	AZURE_MSSQL	D	AZURE_MSSQL	\N	WEEKLY	\N	PULL	f	23
+\.
+
+
+--
+-- Data for Name: datasource_cache_strategy; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_cache_strategy (id, fk_datasource_relation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: datasource_change_history; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_change_history (id, description, entity_type, operation, update_at, fk_datasource_id) FROM stdin;
+12	fusiondb is created	DATASOURCE	INITIALIZE	2022-02-04 02:19:47.942	6
+35	AZURE_MSSQL is created	DATASOURCE	INITIALIZE	2022-02-04 02:24:42.789	28
+105	8 tables ingested	DATASOURCE	INITIALIZE	2022-02-04 02:24:47.25	28
+\.
+
+
+--
+-- Data for Name: datasource_option; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_option (datasource_type, id, option_id, option_key, option_value, fk_datasource_id) FROM stdin;
+MASTER	7	967f75b1-a82e-47a9-9a15-7e5351dbe10c	username	postgres	6
+MASTER	8	967f75b1-a82e-47a9-9a15-7e5351dbe10c	schema_prepended_table	true	6
+MASTER	9	967f75b1-a82e-47a9-9a15-7e5351dbe10c	jdbcurl	jdbc:postgresql://localhost:5432/coordinator	6
+MASTER	10	967f75b1-a82e-47a9-9a15-7e5351dbe10c	jdbcdriver	org.postgresql.Driver	6
+MASTER	11	967f75b1-a82e-47a9-9a15-7e5351dbe10c	password	postgres	6
+SLAVE	13	ccabdef7-0a67-44c8-9e47-2f7d8906a847	username	postgres	6
+SLAVE	14	ccabdef7-0a67-44c8-9e47-2f7d8906a847	schema_prepended_table	true	6
+SLAVE	15	ccabdef7-0a67-44c8-9e47-2f7d8906a847	jdbcurl	jdbc:postgresql://localhost:5432/data_node1	6
+SLAVE	16	ccabdef7-0a67-44c8-9e47-2f7d8906a847	jdbcdriver	org.postgresql.Driver	6
+SLAVE	17	ccabdef7-0a67-44c8-9e47-2f7d8906a847	password	postgres	6
+SLAVE	18	aaea8e1a-4634-450d-b3fc-0618cdd1b0de	username	postgres	6
+SLAVE	19	aaea8e1a-4634-450d-b3fc-0618cdd1b0de	schema_prepended_table	true	6
+SLAVE	20	aaea8e1a-4634-450d-b3fc-0618cdd1b0de	jdbcurl	jdbc:postgresql://localhost:5432/data_node2	6
+SLAVE	21	aaea8e1a-4634-450d-b3fc-0618cdd1b0de	jdbcdriver	org.postgresql.Driver	6
+SLAVE	22	aaea8e1a-4634-450d-b3fc-0618cdd1b0de	password	postgres	6
+MASTER	29	bdfae437-29ed-4cb6-8366-0e2a3edfde82	username	adminnew	28
+MASTER	30	bdfae437-29ed-4cb6-8366-0e2a3edfde82	jdbcurl	jdbc:sqlserver://microsoftsqlserver.database.windows.net:1433 	28
+MASTER	31	bdfae437-29ed-4cb6-8366-0e2a3edfde82	jdbcdriver	com.microsoft.sqlserver.jdbc.SQLServerDriver	28
+MASTER	32	bdfae437-29ed-4cb6-8366-0e2a3edfde82	schema	tpch1	28
+MASTER	33	bdfae437-29ed-4cb6-8366-0e2a3edfde82	databaseName	DemoData	28
+MASTER	34	bdfae437-29ed-4cb6-8366-0e2a3edfde82	password	WarehouseZet123	28
+\.
+
+
+--
+-- Data for Name: datasource_relation; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation (relation_type, id, cache_baseline, cache_policy, cache_storage, cache_type, case_sensitive_name, description, materialized_table, name, target_schema, fk_datasource_id) FROM stdin;
+TABLE	36	\N	\N	\N	\N	supplier	\N	\N	SUPPLIER	tpch1	28
+TABLE	44	\N	\N	\N	\N	orders	\N	\N	ORDERS	tpch1	28
+TABLE	54	\N	\N	\N	\N	nation	\N	\N	NATION	tpch1	28
+TABLE	59	\N	\N	\N	\N	lineitem	\N	\N	LINEITEM	tpch1	28
+TABLE	76	\N	\N	\N	\N	partsupp	\N	\N	PARTSUPP	tpch1	28
+TABLE	82	\N	\N	\N	\N	region	\N	\N	REGION	tpch1	28
+TABLE	86	\N	\N	\N	\N	part	\N	\N	PART	tpch1	28
+TABLE	96	\N	\N	\N	\N	customer	\N	\N	CUSTOMER	tpch1	28
+\.
+
+
+--
+-- Data for Name: datasource_relation_column_histogram; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation_column_histogram (id, lower_bound, rec_count, upper_bound, fk_datasource_relation_column_stat_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: datasource_relation_column_stat; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation_column_stat (id, analyzed_time, avg_val_len, cardinality, max_val_len, min_val_len, null_count, fk_datasource_relation_schema_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: datasource_relation_index_history; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation_index_history (id, cardinality, indexed_columns, indexed_time, size_in_bytes, fk_datasource_relation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: datasource_relation_part; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation_part (id, part_column, counts, lowerbound, upperbound, fk_datasource_relation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: datasource_relation_schema; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation_schema (id, autoincrement, column_name, data_type, description, index_name, nullable, org_column_name, primary_key, reference_column, reference_table, fk_datasource_relation_id) FROM stdin;
+37	f	S_SUPPKEY	integer	\N	\N	t	s_suppkey	f	\N	\N	36
+38	f	S_NAME	string	\N	\N	t	s_name	f	\N	\N	36
+39	f	S_ADDRESS	string	\N	\N	t	s_address	f	\N	\N	36
+40	f	S_NATIONKEY	integer	\N	\N	t	s_nationkey	f	\N	\N	36
+41	f	S_PHONE	string	\N	\N	t	s_phone	f	\N	\N	36
+42	f	S_ACCTBAL	float	\N	\N	t	s_acctbal	f	\N	\N	36
+43	f	S_COMMENT	string	\N	\N	t	s_comment	f	\N	\N	36
+45	f	O_ORDERKEY	long	\N	\N	t	o_orderkey	f	\N	\N	44
+46	f	O_CUSTKEY	integer	\N	\N	t	o_custkey	f	\N	\N	44
+47	f	O_ORDERSTATUS	string	\N	\N	t	o_orderstatus	f	\N	\N	44
+48	f	O_TOTALPRICE	float	\N	\N	t	o_totalprice	f	\N	\N	44
+49	f	O_ORDERDATE	date	\N	\N	t	o_orderdate	f	\N	\N	44
+50	f	O_ORDERPRIORITY	string	\N	\N	t	o_orderpriority	f	\N	\N	44
+51	f	O_CLERK	string	\N	\N	t	o_clerk	f	\N	\N	44
+52	f	O_SHIPPRIORITY	integer	\N	\N	t	o_shippriority	f	\N	\N	44
+53	f	O_COMMENT	string	\N	\N	t	o_comment	f	\N	\N	44
+55	f	N_NATIONKEY	integer	\N	\N	t	n_nationkey	f	\N	\N	54
+56	f	N_NAME	string	\N	\N	t	n_name	f	\N	\N	54
+57	f	N_REGIONKEY	integer	\N	\N	t	n_regionkey	f	\N	\N	54
+58	f	N_COMMENT	string	\N	\N	t	n_comment	f	\N	\N	54
+60	f	L_ORDERKEY	long	\N	\N	t	l_orderkey	f	\N	\N	59
+61	f	L_PARTKEY	integer	\N	\N	t	l_partkey	f	\N	\N	59
+62	f	L_SUPPKEY	integer	\N	\N	t	l_suppkey	f	\N	\N	59
+63	f	L_LINENUMBER	integer	\N	\N	t	l_linenumber	f	\N	\N	59
+64	f	L_QUANTITY	float	\N	\N	t	l_quantity	f	\N	\N	59
+65	f	L_EXTENDEDPRICE	float	\N	\N	t	l_extendedprice	f	\N	\N	59
+66	f	L_DISCOUNT	float	\N	\N	t	l_discount	f	\N	\N	59
+67	f	L_TAX	float	\N	\N	t	l_tax	f	\N	\N	59
+68	f	L_RETURNFLAG	string	\N	\N	t	l_returnflag	f	\N	\N	59
+69	f	L_LINESTATUS	string	\N	\N	t	l_linestatus	f	\N	\N	59
+70	f	L_SHIPDATE	date	\N	\N	t	l_shipdate	f	\N	\N	59
+71	f	L_COMMITDATE	date	\N	\N	t	l_commitdate	f	\N	\N	59
+72	f	L_RECEIPTDATE	date	\N	\N	t	l_receiptdate	f	\N	\N	59
+73	f	L_SHIPINSTRUCT	string	\N	\N	t	l_shipinstruct	f	\N	\N	59
+74	f	L_SHIPMODE	string	\N	\N	t	l_shipmode	f	\N	\N	59
+75	f	L_COMMENT	string	\N	\N	t	l_comment	f	\N	\N	59
+77	f	PS_PARTKEY	integer	\N	\N	t	ps_partkey	f	\N	\N	76
+78	f	PS_SUPPKEY	integer	\N	\N	t	ps_suppkey	f	\N	\N	76
+79	f	PS_AVAILQTY	integer	\N	\N	t	ps_availqty	f	\N	\N	76
+80	f	PS_SUPPLYCOST	float	\N	\N	t	ps_supplycost	f	\N	\N	76
+81	f	PS_COMMENT	string	\N	\N	t	ps_comment	f	\N	\N	76
+83	f	R_REGIONKEY	integer	\N	\N	t	r_regionkey	f	\N	\N	82
+84	f	R_NAME	string	\N	\N	t	r_name	f	\N	\N	82
+85	f	R_COMMENT	string	\N	\N	t	r_comment	f	\N	\N	82
+87	f	P_PARTKEY	integer	\N	\N	f	p_partkey	f	\N	\N	86
+88	f	P_NAME	string	\N	\N	t	p_name	f	\N	\N	86
+89	f	P_MFGR	string	\N	\N	t	p_mfgr	f	\N	\N	86
+90	f	P_BRAND	string	\N	\N	t	p_brand	f	\N	\N	86
+91	f	P_TYPE	string	\N	\N	t	p_type	f	\N	\N	86
+92	f	P_SIZE	integer	\N	\N	t	p_size	f	\N	\N	86
+93	f	P_CONTAINER	string	\N	\N	t	p_container	f	\N	\N	86
+94	f	P_RETAILPRICE	float	\N	\N	t	p_retailprice	f	\N	\N	86
+95	f	P_COMMENT	string	\N	\N	t	p_comment	f	\N	\N	86
+97	f	C_CUSTKEY	integer	\N	\N	t	c_custkey	f	\N	\N	96
+98	f	C_NAME	string	\N	\N	t	c_name	f	\N	\N	96
+99	f	C_ADDRESS	string	\N	\N	t	c_address	f	\N	\N	96
+100	f	C_NATIONKEY	integer	\N	\N	t	c_nationkey	f	\N	\N	96
+101	f	C_PHONE	string	\N	\N	t	c_phone	f	\N	\N	96
+102	f	C_ACCTBAL	float	\N	\N	t	c_acctbal	f	\N	\N	96
+103	f	C_MKTSEGMENT	string	\N	\N	t	c_mktsegment	f	\N	\N	96
+104	f	C_COMMENT	string	\N	\N	t	c_comment	f	\N	\N	96
+\.
+
+
+--
+-- Data for Name: datasource_relation_schema_tag; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation_schema_tag (id, tag, fk_datasource_relation_schema_id) FROM stdin;
+184	raina	37
+\.
+
+
+--
+-- Data for Name: datasource_relation_table; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation_table (distribution_type, source_table, id) FROM stdin;
+N	supplier	36
+N	orders	44
+N	nation	54
+N	lineitem	59
+N	partsupp	76
+N	region	82
+N	part	86
+N	customer	96
+\.
+
+
+--
+-- Data for Name: datasource_relation_table_stat; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation_table_stat (id, analyzed_time, cardinality, size_in_bytes, fk_datasource_table_relation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: datasource_relation_tag; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation_tag (id, tag, fk_datasource_relation_id) FROM stdin;
+142	mehar	36
+\.
+
+
+--
+-- Data for Name: datasource_relation_view; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.datasource_relation_view (query, id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: entity_limit; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.entity_limit (id, size, value, fk_organisation_id) FROM stdin;
+26	SMALL_INSTANCE	1	23
+\.
+
+
+--
+-- Data for Name: filestore_table; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.filestore_table (id, case_sensitive_name, description, file_path, format, materialized_table, name, fk_lightning_database_id) FROM stdin;
+177	tel	\N	dffs://telstra_test.csv	csv	\N	TEL	176
+\.
+
+
+--
+-- Data for Name: filestore_table_option; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.filestore_table_option (id, option_id, option_key, option_value, fk_filestore_table_id) FROM stdin;
+178	c7cb60cd-1d43-44f7-b77c-7ea317db106f	delimiter	,	177
+179	c7cb60cd-1d43-44f7-b77c-7ea317db106f	path	dffs://telstra_test.csv	177
+180	c7cb60cd-1d43-44f7-b77c-7ea317db106f	header	true	177
+181	c7cb60cd-1d43-44f7-b77c-7ea317db106f	inferSchema	true	177
+\.
+
+
+--
+-- Data for Name: filestore_table_schema; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.filestore_table_schema (id, column_name, data_type, nullable, org_column_name, fk_filestore_table_id) FROM stdin;
+182	NAME	"string"	f	name	177
+183	EMPNO	"integer"	f	empno	177
+\.
+
+
+--
+-- Data for Name: granted_role; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.granted_role (id, granted_at, granted_by, privilege, table_identifier, with_grant_option, fk_lightning_role_name) FROM stdin;
+187	2022-02-04 02:59:54.047	limeade@account.com	SELECT	AZURE_MSSQL.*	f	25
+188	2022-02-04 02:59:54.078	limeade@account.com	SELECT	AZURE_MSSQL.SUPPLIER	f	25
+189	2022-02-04 02:59:54.108	limeade@account.com	SELECT	AZURE_MSSQL.ORDERS	f	25
+190	2022-02-04 02:59:54.133	limeade@account.com	SELECT	AZURE_MSSQL.NATION	f	25
+191	2022-02-04 02:59:54.159	limeade@account.com	SELECT	AZURE_MSSQL.LINEITEM	f	25
+192	2022-02-04 02:59:54.184	limeade@account.com	SELECT	AZURE_MSSQL.PARTSUPP	f	25
+193	2022-02-04 02:59:54.204	limeade@account.com	SELECT	AZURE_MSSQL.REGION	f	25
+194	2022-02-04 02:59:54.225	limeade@account.com	SELECT	AZURE_MSSQL.PART	f	25
+195	2022-02-04 02:59:54.246	limeade@account.com	SELECT	AZURE_MSSQL.CUSTOMER	f	25
+\.
+
+
+--
+-- Data for Name: granted_user; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.granted_user (id, granted_at, granted_by, privilege, table_identifier, with_grant_option, fk_lightning_user_email) FROM stdin;
+\.
+
+
+--
+-- Data for Name: http_request_param; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.http_request_param (id, param_id, param_key, param_value, fk_oauth_id) FROM stdin;
+200	BODY	grant_type	password	199
+201	BODY	username	raina.thomas@gmail.com	199
+202	BODY	password	@Praise4Mary	199
+203	BODY	client_secret	72feed55e7e7feaceb8e78f1ae07121a	199
+\.
+
+
+--
+-- Data for Name: imported_certificates; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.imported_certificates (id, alias, created_at, created_by, fingerprint, issuer_dn, valid_from, valid_to, fk_organisation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ldap_configuration; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.ldap_configuration (id, attribute, description, dn, is_enabled, name, password, principal, ldap_url, fk_organisation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: lightning_database; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.lightning_database (id, case_sensitive_name, description, name, fk_organisation_id) FROM stdin;
+176	file_test		FILE_TEST	23
+204	weather	weather	WEATHER	23
+\.
+
+
+--
+-- Data for Name: lightning_database_option; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.lightning_database_option (id, option_key, option_value, fk_lightning_database_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: lightning_rest_table; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.lightning_rest_table (id, case_sensitive_name, comment, description, materialized_table, name, fk_lightning_database_id) FROM stdin;
+205	current_weather	\N	\N	\N	CURRENT_WEATHER	204
+\.
+
+
+--
+-- Data for Name: lightning_rest_table_option; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.lightning_rest_table_option (id, option_key, option_value, param_id, fk_datasource_rest_relation_id) FROM stdin;
+206	access_token	Bearer ${access_token}	bound	205
+207	endpoint	http://api.weatherstack.com/current?access_key=72feed55e7e7feaceb8e78f1ae07121a&query=New%20York	request	205
+208	method	get	request	205
+209	response_type	json	request	205
+210	http_encoding	URLENCODED	request	205
+211	Authorization	Bearer ${access_token}	header	205
+\.
+
+
+--
+-- Data for Name: lightning_rest_table_schema; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.lightning_rest_table_schema (id, column_name, data_type, nullable, org_column_name, fk_lightning_rest_table_id) FROM stdin;
+212	CURRENT	{"type":"struct","fields":[{"name":"cloudcover","type":"long","nullable":true,"metadata":{}},{"name":"feelslike","type":"long","nullable":true,"metadata":{}},{"name":"humidity","type":"long","nullable":true,"metadata":{}},{"name":"is_day","type":"string","nullable":true,"metadata":{}},{"name":"observation_time","type":"string","nullable":true,"metadata":{}},{"name":"precip","type":"double","nullable":true,"metadata":{}},{"name":"pressure","type":"long","nullable":true,"metadata":{}},{"name":"temperature","type":"long","nullable":true,"metadata":{}},{"name":"uv_index","type":"long","nullable":true,"metadata":{}},{"name":"visibility","type":"long","nullable":true,"metadata":{}},{"name":"weather_code","type":"long","nullable":true,"metadata":{}},{"name":"weather_descriptions","type":{"type":"array","elementType":"string","containsNull":true},"nullable":true,"metadata":{}},{"name":"weather_icons","type":{"type":"array","elementType":"string","containsNull":true},"nullable":true,"metadata":{}},{"name":"wind_degree","type":"long","nullable":true,"metadata":{}},{"name":"wind_dir","type":"string","nullable":true,"metadata":{}},{"name":"wind_speed","type":"long","nullable":true,"metadata":{}}]}	t	current	205
+213	LOCATION	{"type":"struct","fields":[{"name":"country","type":"string","nullable":true,"metadata":{}},{"name":"lat","type":"string","nullable":true,"metadata":{}},{"name":"localtime","type":"string","nullable":true,"metadata":{}},{"name":"localtime_epoch","type":"long","nullable":true,"metadata":{}},{"name":"lon","type":"string","nullable":true,"metadata":{}},{"name":"name","type":"string","nullable":true,"metadata":{}},{"name":"region","type":"string","nullable":true,"metadata":{}},{"name":"timezone_id","type":"string","nullable":true,"metadata":{}},{"name":"utc_offset","type":"string","nullable":true,"metadata":{}}]}	t	location	205
+214	REQUEST	{"type":"struct","fields":[{"name":"language","type":"string","nullable":true,"metadata":{}},{"name":"query","type":"string","nullable":true,"metadata":{}},{"name":"type","type":"string","nullable":true,"metadata":{}},{"name":"unit","type":"string","nullable":true,"metadata":{}}]}	t	request	205
+\.
+
+
+--
+-- Data for Name: lightning_role; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.lightning_role (id, created_at, created_by, description, is_ldap, name, fk_organisation_id) FROM stdin;
+3	2022-02-04 02:19:47.844	admin@default.com	DEFAULT ADMIN ROLE	f	ADMIN	1
+25	2022-02-04 02:23:15.652	limeade@account.com	DEFAULT ADMIN ROLE	f	ADMIN	23
+\.
+
+
+--
+-- Data for Name: lightning_user; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.lightning_user (email, activated_at, created_at, is_ldap, is_reset, level, name, password, user_hash, fk_organisation_id) FROM stdin;
+ADMIN@DEFAULT.COM	\N	2022-02-04 02:19:47.833	f	f	ADMIN	ADMIN	b62b7a22401f30ca62adfbebe25438afea287468179b1308fdcd485452351f35	1be5c008b30ca1ff73813bad1dd8cd0d	1
+LIMEADE@ACCOUNT.COM	\N	2022-02-04 02:23:15.644	f	f	ADMIN	ADMIN	3fbfeb0ee307127bbd4ef7da33f7b57a9ff3c7357da182c5bfccc2a4f599c6f9	6b571f9902f869f58a3571ac38485c21	23
+MEHARBAN.SINGH@ZETARIS.COM	\N	2022-02-04 02:58:17.382	f	f	GENERAL	MEHAR	3fbfeb0ee307127bbd4ef7da33f7b57a9ff3c7357da182c5bfccc2a4f599c6f9	b019b85558800a49e06e96f38f309a1b	23
+\.
+
+
+--
+-- Data for Name: oauth; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.oauth (id, content_type, endpoint, http_encoding, method, name, fk_organisation_id) FROM stdin;
+199	\N	http://api.weatherstack.com/current	URLENCODED	POST	weather	23
+\.
+
+
+--
+-- Data for Name: offsite_cache_history; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.offsite_cache_history (id, cache_action, end_time, rec_count, source_table, start_time, fk_organisation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: offsite_cache_strategy; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.offsite_cache_strategy (relation_type, id, cached_at, delta_column, delta_cycle, expire_in_sec, source_table, under_cache, fk_organisation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: organisation; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.organisation (id, address, case_insensitive_name, country_code, email, mobile_number, name, organisation_id, partner_id, phone_number, post_code, unique_id) FROM stdin;
+1	1225/401 Docklands Driver, Docklands VIC	Zetaris Enterprise Fabric	61	admin@default.com	1300	Zetaris Enterprise Fabric	52c18448	\N	1300	3008	\N
+23	address	Account	61	limeade@account.com	0000 000 000	Account	1d0c220d	\N	03 0000 0000	3000	\N
+\.
+
+
+--
+-- Data for Name: organisation_status; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.organisation_status (id, changed_at, reason, status, fk_organisation_id) FROM stdin;
+2	2022-02-04 02:19:47.759	registered by service administrator	PENDING	1
+4	2022-02-04 02:19:47.864	activated by default	ACTIVE	1
+24	2022-02-04 02:23:15.605	registered by service administrator	PENDING	23
+27	2022-02-04 02:23:15.739	Activated by service admin	ACTIVE	23
+\.
+
+
+--
+-- Data for Name: pipeline_aggregation; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_aggregation (filter_expression, group_expression, having_expression, order_by, id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: pipeline_container; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_container (id, case_sensitive_name, description, name, fk_organisation_id) FROM stdin;
+106	PIPELINE_TEST	\N	pipeline_test	23
+215	WEATHER_TRANSFORMS	\N	weather_transforms	23
+\.
+
+
+--
+-- Data for Name: pipeline_datasource; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_datasource (datasource, datasource_table, id) FROM stdin;
+AZURE_MSSQL	CUSTOMER	126
+\.
+
+
+--
+-- Data for Name: pipeline_join; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_join (filter_expression, join_predicate, join_tables, order_by, id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: pipeline_node; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_node (pipeline_type, id, case_sensitive_name, description, name, fk_pipeline_relation_id) FROM stdin;
+DATASOURCE	126	azure_mssql_customer		azure_mssql_customer	107
+PROJECTION	134	projection_0		projection_0	107
+SQLTable	217	sqltable_0		sqltable_0	216
+PROJECTION	219	projection_1		projection_1	216
+\.
+
+
+--
+-- Data for Name: pipeline_node_property; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_node_property (id, property_key, property_value, fk_pipeline_node_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: pipeline_node_schema; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_node_schema (id, column_alias, column_name, data_type, sql_expression, fk_pipeline_node_id) FROM stdin;
+127		c_custkey	int		126
+128		c_name	string		126
+129		c_address	string		126
+130		c_nationkey	int		126
+131		c_phone	string		126
+132		c_acctbal	float		126
+133		c_mktsegment	string		126
+135		c_custkey	int		134
+136		c_name	string		134
+137		c_address	string		134
+138		c_nationkey	int		134
+139		c_phone	string		134
+140		c_acctbal	float		134
+141		c_mktsegment	string		134
+218	city	city	string		217
+220		city	string		219
+\.
+
+
+--
+-- Data for Name: pipeline_projection; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_projection (filter_expression, order_by, windows_spec, id) FROM stdin;
+		\N	134
+		\N	219
+\.
+
+
+--
+-- Data for Name: pipeline_relation; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_relation (id, case_sensitive_name, description, name, fk_pipeline_container_id) FROM stdin;
+107	create_pipeline		create_pipeline	106
+216	weather		weather	215
+\.
+
+
+--
+-- Data for Name: pipeline_set; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_set (allow_missing_col, by_name, filter_expression, is_all, is_distinct, order_by, set_tables, set_type, id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: pipeline_simple_dq; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_simple_dq (id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: pipeline_simple_dq_rule; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_simple_dq_rule (id, columns, expression, filter, name, fk_pipeline_simple_dq_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: pipeline_sink; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_sink (sink_type, id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: pipeline_sqltable; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.pipeline_sqltable (source_tables, sql_query, id) FROM stdin;
+	select location.name as city\r\n from weather.current_weather	217
+\.
+
+
+--
+-- Data for Name: push_datasource_topic; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.push_datasource_topic (id, partition, topic, fk_organisation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: push_datasource_topic_option; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.push_datasource_topic_option (id, option_key, option_value, fk_push_datasource_topic_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: rest_oauth; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.rest_oauth (rest_table_id, oauth_id) FROM stdin;
+205	199
+\.
+
+
+--
+-- Data for Name: schema_store_view; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.schema_store_view (id, description, generator, materialized_table, name, query, fk_organisation_id) FROM stdin;
+163	\N	query_builder	\N	VIEW_TEST	 SELECT\n\tAZURE_MSSQL_nation.n_nationkey  AZURE_MSSQL_nation_n_nationkey,\n\tAZURE_MSSQL_nation.n_name  AZURE_MSSQL_nation_n_name,\n\tAZURE_MSSQL_nation.n_regionkey  AZURE_MSSQL_nation_n_regionkey,\n\tAZURE_MSSQL_nation.n_comment  AZURE_MSSQL_nation_n_comment,\n\tAZURE_MSSQL_customer.c_custkey  AZURE_MSSQL_customer_c_custkey,\n\tAZURE_MSSQL_customer.c_name  AZURE_MSSQL_customer_c_name,\n\tAZURE_MSSQL_customer.c_address  AZURE_MSSQL_customer_c_address,\n\tAZURE_MSSQL_customer.c_nationkey  AZURE_MSSQL_customer_c_nationkey,\n\tAZURE_MSSQL_customer.c_phone  AZURE_MSSQL_customer_c_phone,\n\tAZURE_MSSQL_customer.c_acctbal  AZURE_MSSQL_customer_c_acctbal,\n\tAZURE_MSSQL_customer.c_mktsegment  AZURE_MSSQL_customer_c_mktsegment,\n\tAZURE_MSSQL_customer.c_comment  AZURE_MSSQL_customer_c_comment\nFROM\n\tAZURE_MSSQL.nation AZURE_MSSQL_nation\n\tINNER JOIN\n\tAZURE_MSSQL.customer AZURE_MSSQL_customer\nON (AZURE_MSSQL_nation.n_nationkey = AZURE_MSSQL_customer.c_nationkey)\n\n      	23
+\.
+
+
+--
+-- Data for Name: schema_store_view_schema; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.schema_store_view_schema (id, column_name, data_type, fk_schema_store_view_id) FROM stdin;
+164	AZURE_MSSQL_nation_n_nationkey	integer	163
+165	AZURE_MSSQL_nation_n_name	string	163
+166	AZURE_MSSQL_nation_n_regionkey	integer	163
+167	AZURE_MSSQL_nation_n_comment	string	163
+168	AZURE_MSSQL_customer_c_custkey	integer	163
+169	AZURE_MSSQL_customer_c_name	string	163
+170	AZURE_MSSQL_customer_c_address	string	163
+171	AZURE_MSSQL_customer_c_nationkey	integer	163
+172	AZURE_MSSQL_customer_c_phone	string	163
+173	AZURE_MSSQL_customer_c_acctbal	float	163
+174	AZURE_MSSQL_customer_c_mktsegment	string	163
+175	AZURE_MSSQL_customer_c_comment	string	163
+\.
+
+
+--
+-- Data for Name: schemastore_view_cache_strategy; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.schemastore_view_cache_strategy (id, fk_schemastore_view_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: streaming_datasource; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.streaming_datasource (table_type, id, case_sensitive_name, json_schema, name, fk_organisation_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: streaming_datasource_aggr_table; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.streaming_datasource_aggr_table (output_format, output_mode, query, id, fk_streaming_datasource_raw_table_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: streaming_datasource_option; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.streaming_datasource_option (id, is_input, option_key, option_value, fk_streaming_datasource_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: streaming_datasource_raw_table; Type: TABLE DATA; Schema: public; Owner: rds_admin
+--
+
+COPY public.streaming_datasource_raw_table (input_format, input_sample, input_source, id) FROM stdin;
+\.
+
+
+--
+-- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: rds_admin
+--
+
+SELECT pg_catalog.setval('public.hibernate_sequence', 221, true);
+
+
+--
+-- Name: adaptive_offsite_cache_policy adaptive_offsite_cache_policy_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.adaptive_offsite_cache_policy
+    ADD CONSTRAINT adaptive_offsite_cache_policy_pkey PRIMARY KEY (table_type);
+
+
+--
+-- Name: assigned_data_mart_to_role assigned_data_mart_to_role_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_mart_to_role
+    ADD CONSTRAINT assigned_data_mart_to_role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_data_mart_to_user assigned_data_mart_to_user_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_mart_to_user
+    ADD CONSTRAINT assigned_data_mart_to_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_data_source_to_role assigned_data_source_to_role_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_source_to_role
+    ADD CONSTRAINT assigned_data_source_to_role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_data_source_to_user assigned_data_source_to_user_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_source_to_user
+    ADD CONSTRAINT assigned_data_source_to_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_database_to_role assigned_database_to_role_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_database_to_role
+    ADD CONSTRAINT assigned_database_to_role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_database_to_user assigned_database_to_user_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_database_to_user
+    ADD CONSTRAINT assigned_database_to_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_dw_data_mart assigned_dw_data_mart_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_data_mart
+    ADD CONSTRAINT assigned_dw_data_mart_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_dw_data_source assigned_dw_data_source_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_data_source
+    ADD CONSTRAINT assigned_dw_data_source_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_dw_database assigned_dw_database_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_database
+    ADD CONSTRAINT assigned_dw_database_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_dw_pipeline assigned_dw_pipeline_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_pipeline
+    ADD CONSTRAINT assigned_dw_pipeline_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_dw_role assigned_dw_role_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_role
+    ADD CONSTRAINT assigned_dw_role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_dw_schema_store_view assigned_dw_schema_store_view_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_schema_store_view
+    ADD CONSTRAINT assigned_dw_schema_store_view_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_dw_streaming assigned_dw_streaming_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_streaming
+    ADD CONSTRAINT assigned_dw_streaming_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_dw_user assigned_dw_user_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_user
+    ADD CONSTRAINT assigned_dw_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_pipeline_to_role assigned_pipeline_to_role_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_pipeline_to_role
+    ADD CONSTRAINT assigned_pipeline_to_role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_pipeline_to_user assigned_pipeline_to_user_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_pipeline_to_user
+    ADD CONSTRAINT assigned_pipeline_to_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_role assigned_role_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_role
+    ADD CONSTRAINT assigned_role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_schema_store_view_to_role assigned_schema_store_view_to_role_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_schema_store_view_to_role
+    ADD CONSTRAINT assigned_schema_store_view_to_role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_schema_store_view_to_user assigned_schema_store_view_to_user_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_schema_store_view_to_user
+    ADD CONSTRAINT assigned_schema_store_view_to_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: data_mart data_mart_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart
+    ADD CONSTRAINT data_mart_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: data_mart_table_association data_mart_table_association_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart_table_association
+    ADD CONSTRAINT data_mart_table_association_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: data_mart_table data_mart_table_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart_table
+    ADD CONSTRAINT data_mart_table_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: data_mart_table_schema data_mart_table_schema_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart_table_schema
+    ADD CONSTRAINT data_mart_table_schema_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: data_warehouse_history data_warehouse_history_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_warehouse_history
+    ADD CONSTRAINT data_warehouse_history_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: data_warehouse data_warehouse_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_warehouse
+    ADD CONSTRAINT data_warehouse_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_cache_strategy datasource_cache_strategy_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_cache_strategy
+    ADD CONSTRAINT datasource_cache_strategy_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_change_history datasource_change_history_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_change_history
+    ADD CONSTRAINT datasource_change_history_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_option datasource_option_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_option
+    ADD CONSTRAINT datasource_option_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource datasource_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource
+    ADD CONSTRAINT datasource_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation_column_histogram datasource_relation_column_histogram_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_column_histogram
+    ADD CONSTRAINT datasource_relation_column_histogram_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation_column_stat datasource_relation_column_stat_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_column_stat
+    ADD CONSTRAINT datasource_relation_column_stat_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation_index_history datasource_relation_index_history_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_index_history
+    ADD CONSTRAINT datasource_relation_index_history_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation_part datasource_relation_part_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_part
+    ADD CONSTRAINT datasource_relation_part_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation datasource_relation_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation
+    ADD CONSTRAINT datasource_relation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation_schema datasource_relation_schema_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_schema
+    ADD CONSTRAINT datasource_relation_schema_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation_schema_tag datasource_relation_schema_tag_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_schema_tag
+    ADD CONSTRAINT datasource_relation_schema_tag_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation_table datasource_relation_table_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_table
+    ADD CONSTRAINT datasource_relation_table_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation_table_stat datasource_relation_table_stat_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_table_stat
+    ADD CONSTRAINT datasource_relation_table_stat_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation_tag datasource_relation_tag_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_tag
+    ADD CONSTRAINT datasource_relation_tag_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: datasource_relation_view datasource_relation_view_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_view
+    ADD CONSTRAINT datasource_relation_view_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: entity_limit entity_limit_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.entity_limit
+    ADD CONSTRAINT entity_limit_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: filestore_table_option filestore_table_option_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.filestore_table_option
+    ADD CONSTRAINT filestore_table_option_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: filestore_table filestore_table_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.filestore_table
+    ADD CONSTRAINT filestore_table_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: filestore_table_schema filestore_table_schema_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.filestore_table_schema
+    ADD CONSTRAINT filestore_table_schema_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: granted_role granted_role_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.granted_role
+    ADD CONSTRAINT granted_role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: granted_user granted_user_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.granted_user
+    ADD CONSTRAINT granted_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: http_request_param http_request_param_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.http_request_param
+    ADD CONSTRAINT http_request_param_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: imported_certificates imported_certificates_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.imported_certificates
+    ADD CONSTRAINT imported_certificates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ldap_configuration ldap_configuration_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.ldap_configuration
+    ADD CONSTRAINT ldap_configuration_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lightning_database_option lightning_database_option_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_database_option
+    ADD CONSTRAINT lightning_database_option_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lightning_database lightning_database_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_database
+    ADD CONSTRAINT lightning_database_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lightning_rest_table_option lightning_rest_table_option_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_rest_table_option
+    ADD CONSTRAINT lightning_rest_table_option_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lightning_rest_table lightning_rest_table_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_rest_table
+    ADD CONSTRAINT lightning_rest_table_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lightning_rest_table_schema lightning_rest_table_schema_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_rest_table_schema
+    ADD CONSTRAINT lightning_rest_table_schema_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lightning_role lightning_role_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_role
+    ADD CONSTRAINT lightning_role_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lightning_user lightning_user_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_user
+    ADD CONSTRAINT lightning_user_pkey PRIMARY KEY (email);
+
+
+--
+-- Name: oauth oauth_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.oauth
+    ADD CONSTRAINT oauth_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: offsite_cache_history offsite_cache_history_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.offsite_cache_history
+    ADD CONSTRAINT offsite_cache_history_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: offsite_cache_strategy offsite_cache_strategy_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.offsite_cache_strategy
+    ADD CONSTRAINT offsite_cache_strategy_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: organisation organisation_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.organisation
+    ADD CONSTRAINT organisation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: organisation_status organisation_status_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.organisation_status
+    ADD CONSTRAINT organisation_status_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_aggregation pipeline_aggregation_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_aggregation
+    ADD CONSTRAINT pipeline_aggregation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_container pipeline_container_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_container
+    ADD CONSTRAINT pipeline_container_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_datasource pipeline_datasource_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_datasource
+    ADD CONSTRAINT pipeline_datasource_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_join pipeline_join_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_join
+    ADD CONSTRAINT pipeline_join_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_node pipeline_node_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_node
+    ADD CONSTRAINT pipeline_node_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_node_property pipeline_node_property_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_node_property
+    ADD CONSTRAINT pipeline_node_property_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_node_schema pipeline_node_schema_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_node_schema
+    ADD CONSTRAINT pipeline_node_schema_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_projection pipeline_projection_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_projection
+    ADD CONSTRAINT pipeline_projection_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_relation pipeline_relation_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_relation
+    ADD CONSTRAINT pipeline_relation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_set pipeline_set_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_set
+    ADD CONSTRAINT pipeline_set_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_simple_dq pipeline_simple_dq_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_simple_dq
+    ADD CONSTRAINT pipeline_simple_dq_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_simple_dq_rule pipeline_simple_dq_rule_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_simple_dq_rule
+    ADD CONSTRAINT pipeline_simple_dq_rule_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_sink pipeline_sink_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_sink
+    ADD CONSTRAINT pipeline_sink_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pipeline_sqltable pipeline_sqltable_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_sqltable
+    ADD CONSTRAINT pipeline_sqltable_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: push_datasource_topic_option push_datasource_topic_option_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.push_datasource_topic_option
+    ADD CONSTRAINT push_datasource_topic_option_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: push_datasource_topic push_datasource_topic_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.push_datasource_topic
+    ADD CONSTRAINT push_datasource_topic_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rest_oauth rest_oauth_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.rest_oauth
+    ADD CONSTRAINT rest_oauth_pkey PRIMARY KEY (rest_table_id, oauth_id);
+
+
+--
+-- Name: schema_store_view schema_store_view_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.schema_store_view
+    ADD CONSTRAINT schema_store_view_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_store_view_schema schema_store_view_schema_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.schema_store_view_schema
+    ADD CONSTRAINT schema_store_view_schema_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schemastore_view_cache_strategy schemastore_view_cache_strategy_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.schemastore_view_cache_strategy
+    ADD CONSTRAINT schemastore_view_cache_strategy_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: streaming_datasource_aggr_table streaming_datasource_aggr_table_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.streaming_datasource_aggr_table
+    ADD CONSTRAINT streaming_datasource_aggr_table_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: streaming_datasource_option streaming_datasource_option_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.streaming_datasource_option
+    ADD CONSTRAINT streaming_datasource_option_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: streaming_datasource streaming_datasource_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.streaming_datasource
+    ADD CONSTRAINT streaming_datasource_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: streaming_datasource_raw_table streaming_datasource_raw_table_pkey; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.streaming_datasource_raw_table
+    ADD CONSTRAINT streaming_datasource_raw_table_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_store_view uk_33wgry8sqxry0ub1ia0861oea; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.schema_store_view
+    ADD CONSTRAINT uk_33wgry8sqxry0ub1ia0861oea UNIQUE (name);
+
+
+--
+-- Name: organisation uk_3amlqwg2qp8pehhli3b1g120i; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.organisation
+    ADD CONSTRAINT uk_3amlqwg2qp8pehhli3b1g120i UNIQUE (organisation_id);
+
+
+--
+-- Name: organisation uk_5ekjibefbq4n5uhrpf2u11syr; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.organisation
+    ADD CONSTRAINT uk_5ekjibefbq4n5uhrpf2u11syr UNIQUE (case_insensitive_name);
+
+
+--
+-- Name: data_mart uk_9x985gupx74u9jqql1gvfd17h; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart
+    ADD CONSTRAINT uk_9x985gupx74u9jqql1gvfd17h UNIQUE (name);
+
+
+--
+-- Name: organisation uk_cqa2ieo2bedx88ph05mflnw5p; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.organisation
+    ADD CONSTRAINT uk_cqa2ieo2bedx88ph05mflnw5p UNIQUE (name);
+
+
+--
+-- Name: data_mart uk_d59t62xdwkcpy1cl90g2hewek; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart
+    ADD CONSTRAINT uk_d59t62xdwkcpy1cl90g2hewek UNIQUE (case_sensitive_name);
+
+
+--
+-- Name: oauth uk_lkrlocjme1wxlglbuv6q3bqjh; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.oauth
+    ADD CONSTRAINT uk_lkrlocjme1wxlglbuv6q3bqjh UNIQUE (name);
+
+
+--
+-- Name: datasource_relation_part uk_soo6db6hshbgtmi11atqswj9i; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_part
+    ADD CONSTRAINT uk_soo6db6hshbgtmi11atqswj9i UNIQUE (fk_datasource_relation_id);
+
+
+--
+-- Name: imported_certificates uk_sth8ng979ntr9iloh92ky7ry; Type: CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.imported_certificates
+    ADD CONSTRAINT uk_sth8ng979ntr9iloh92ky7ry UNIQUE (fingerprint);
+
+
+--
+-- Name: filestore_table_option fk10cgfcxhjxmcdf4eeuf62ri2; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.filestore_table_option
+    ADD CONSTRAINT fk10cgfcxhjxmcdf4eeuf62ri2 FOREIGN KEY (fk_filestore_table_id) REFERENCES public.filestore_table(id);
+
+
+--
+-- Name: http_request_param fk11t6avrmmes0kfgwv0m8steqn; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.http_request_param
+    ADD CONSTRAINT fk11t6avrmmes0kfgwv0m8steqn FOREIGN KEY (fk_oauth_id) REFERENCES public.oauth(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_schema_store_view_to_user fk15ptdok3oixrr58su7jcc13ul; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_schema_store_view_to_user
+    ADD CONSTRAINT fk15ptdok3oixrr58su7jcc13ul FOREIGN KEY (fk_lightning_user_id) REFERENCES public.lightning_user(email) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_relation_table_stat fk1fwr8sjubilvn3s35ndlsp57c; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_table_stat
+    ADD CONSTRAINT fk1fwr8sjubilvn3s35ndlsp57c FOREIGN KEY (fk_datasource_table_relation_id) REFERENCES public.datasource_relation_table(id) ON DELETE CASCADE;
+
+
+--
+-- Name: data_mart_table_schema fk2ch0f1e05dg794ulghn7xt70v; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart_table_schema
+    ADD CONSTRAINT fk2ch0f1e05dg794ulghn7xt70v FOREIGN KEY (fk_data_mart_table_id) REFERENCES public.data_mart_table(id) ON DELETE CASCADE;
+
+
+--
+-- Name: streaming_datasource_aggr_table fk2i7l97qw92b9gbwoqyipluoaa; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.streaming_datasource_aggr_table
+    ADD CONSTRAINT fk2i7l97qw92b9gbwoqyipluoaa FOREIGN KEY (fk_streaming_datasource_raw_table_id) REFERENCES public.streaming_datasource_raw_table(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource fk2jcvbgrrgqw55ucyrd52l3ikk; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource
+    ADD CONSTRAINT fk2jcvbgrrgqw55ucyrd52l3ikk FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lightning_role fk2kblxkhhn6uxfbt6ane4ifxpx; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_role
+    ADD CONSTRAINT fk2kblxkhhn6uxfbt6ane4ifxpx FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_node_schema fk31n1ab4njet7ni95agh2xqfoo; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_node_schema
+    ADD CONSTRAINT fk31n1ab4njet7ni95agh2xqfoo FOREIGN KEY (fk_pipeline_node_id) REFERENCES public.pipeline_node(id) ON DELETE CASCADE;
+
+
+--
+-- Name: streaming_datasource_option fk3a6gbpy922le7r2ibuqwxmrnk; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.streaming_datasource_option
+    ADD CONSTRAINT fk3a6gbpy922le7r2ibuqwxmrnk FOREIGN KEY (fk_streaming_datasource_id) REFERENCES public.streaming_datasource(id) ON DELETE CASCADE;
+
+
+--
+-- Name: data_mart fk3ih95rhlhq9d5hs8rg7m35tug; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart
+    ADD CONSTRAINT fk3ih95rhlhq9d5hs8rg7m35tug FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_database_to_user fk3lrhw76ec7hb55rrappyaa6ld; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_database_to_user
+    ADD CONSTRAINT fk3lrhw76ec7hb55rrappyaa6ld FOREIGN KEY (fk_lightning_database_id) REFERENCES public.lightning_database(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_simple_dq fk43c8189j4vldhqp80o8j9qcw9; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_simple_dq
+    ADD CONSTRAINT fk43c8189j4vldhqp80o8j9qcw9 FOREIGN KEY (id) REFERENCES public.pipeline_node(id) ON DELETE CASCADE;
+
+
+--
+-- Name: filestore_table_schema fk46dc3igrbwgorn9cai5bvwagw; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.filestore_table_schema
+    ADD CONSTRAINT fk46dc3igrbwgorn9cai5bvwagw FOREIGN KEY (fk_filestore_table_id) REFERENCES public.filestore_table(id);
+
+
+--
+-- Name: assigned_database_to_role fk46maropqsuy5yo0dfr1cvrl8a; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_database_to_role
+    ADD CONSTRAINT fk46maropqsuy5yo0dfr1cvrl8a FOREIGN KEY (fk_lightning_database_id) REFERENCES public.lightning_database(id) ON DELETE CASCADE;
+
+
+--
+-- Name: schema_store_view fk4df1k6k1wxw2m30rw69690qye; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.schema_store_view
+    ADD CONSTRAINT fk4df1k6k1wxw2m30rw69690qye FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: filestore_table fk4era60btky0wsajlq6uyv65xr; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.filestore_table
+    ADD CONSTRAINT fk4era60btky0wsajlq6uyv65xr FOREIGN KEY (fk_lightning_database_id) REFERENCES public.lightning_database(id);
+
+
+--
+-- Name: data_mart_table_association fk4ss4bkdpv75riwyl1eklc173y; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart_table_association
+    ADD CONSTRAINT fk4ss4bkdpv75riwyl1eklc173y FOREIGN KEY (fk_source_table_id) REFERENCES public.data_mart_table(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rest_oauth fk4wqiaagkq3e8egvbh9axmknr4; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.rest_oauth
+    ADD CONSTRAINT fk4wqiaagkq3e8egvbh9axmknr4 FOREIGN KEY (oauth_id) REFERENCES public.oauth(id);
+
+
+--
+-- Name: push_datasource_topic fk4x8r38l76m5dfv1mvtitbd9lk; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.push_datasource_topic
+    ADD CONSTRAINT fk4x8r38l76m5dfv1mvtitbd9lk FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_schema_store_view fk5vd2ombitprfdbgxsb1ysgju0; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_schema_store_view
+    ADD CONSTRAINT fk5vd2ombitprfdbgxsb1ysgju0 FOREIGN KEY (fk_data_warehouse_id) REFERENCES public.data_warehouse(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_data_source_to_user fk6kt27j16u5s6irq5dat8x88g1; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_source_to_user
+    ADD CONSTRAINT fk6kt27j16u5s6irq5dat8x88g1 FOREIGN KEY (fk_data_source_id) REFERENCES public.datasource(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_sqltable fk6mk3vrl5tlal8v3q67fmaehrs; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_sqltable
+    ADD CONSTRAINT fk6mk3vrl5tlal8v3q67fmaehrs FOREIGN KEY (id) REFERENCES public.pipeline_node(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_role fk6pryufxoeiidx1d9a5ytv9lb6; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_role
+    ADD CONSTRAINT fk6pryufxoeiidx1d9a5ytv9lb6 FOREIGN KEY (fk_data_warehouse_id) REFERENCES public.data_warehouse(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_relation_index_history fk6xb7a3kkb2uik3w2d0216nmk2; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_index_history
+    ADD CONSTRAINT fk6xb7a3kkb2uik3w2d0216nmk2 FOREIGN KEY (fk_datasource_relation_id) REFERENCES public.datasource_relation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: data_warehouse fk7eqqapyjstxyknks3t2198cye; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_warehouse
+    ADD CONSTRAINT fk7eqqapyjstxyknks3t2198cye FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_container fk7o9b5k7ssi87boriagoa3rmga; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_container
+    ADD CONSTRAINT fk7o9b5k7ssi87boriagoa3rmga FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_data_mart_to_user fk7q3tus021h5s79vu0weutd6b; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_mart_to_user
+    ADD CONSTRAINT fk7q3tus021h5s79vu0weutd6b FOREIGN KEY (fk_lightning_user_id) REFERENCES public.lightning_user(email) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_relation_schema fk7qq39wip09ea9o5prwq8783op; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_schema
+    ADD CONSTRAINT fk7qq39wip09ea9o5prwq8783op FOREIGN KEY (fk_datasource_relation_id) REFERENCES public.datasource_relation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: data_mart_table_association fk8a1m1utd2ckl4tmft1dvsoc5r; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart_table_association
+    ADD CONSTRAINT fk8a1m1utd2ckl4tmft1dvsoc5r FOREIGN KEY (fk_target_table_id) REFERENCES public.data_mart_table(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_data_source_to_role fk8kev8k290h33lg1af07asmfa; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_source_to_role
+    ADD CONSTRAINT fk8kev8k290h33lg1af07asmfa FOREIGN KEY (fk_data_source_id) REFERENCES public.datasource(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_cache_strategy fk94gmm7pb9uoiyhf5td26kjqfx; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_cache_strategy
+    ADD CONSTRAINT fk94gmm7pb9uoiyhf5td26kjqfx FOREIGN KEY (id) REFERENCES public.offsite_cache_strategy(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lightning_rest_table_schema fk99q0pnbxdu0m0819rf96n5drx; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_rest_table_schema
+    ADD CONSTRAINT fk99q0pnbxdu0m0819rf96n5drx FOREIGN KEY (fk_lightning_rest_table_id) REFERENCES public.lightning_rest_table(id);
+
+
+--
+-- Name: push_datasource_topic_option fk9n2b1lbusxpn0vqgec4iu6241; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.push_datasource_topic_option
+    ADD CONSTRAINT fk9n2b1lbusxpn0vqgec4iu6241 FOREIGN KEY (fk_push_datasource_topic_id) REFERENCES public.push_datasource_topic(id);
+
+
+--
+-- Name: pipeline_aggregation fk9orbi2js6bed7sr0caxo65j1n; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_aggregation
+    ADD CONSTRAINT fk9orbi2js6bed7sr0caxo65j1n FOREIGN KEY (id) REFERENCES public.pipeline_node(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_relation fk9s1ubqdktuh8ljnrace2u2hjo; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_relation
+    ADD CONSTRAINT fk9s1ubqdktuh8ljnrace2u2hjo FOREIGN KEY (fk_pipeline_container_id) REFERENCES public.pipeline_container(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_pipeline_to_user fk9t0105clgenqx7ndrxud93c5i; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_pipeline_to_user
+    ADD CONSTRAINT fk9t0105clgenqx7ndrxud93c5i FOREIGN KEY (fk_lightning_user_id) REFERENCES public.lightning_user(email) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_pipeline fk9tctfum9ar0nxctcl93nu4m7c; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_pipeline
+    ADD CONSTRAINT fk9tctfum9ar0nxctcl93nu4m7c FOREIGN KEY (fk_data_warehouse_id) REFERENCES public.data_warehouse(id) ON DELETE CASCADE;
+
+
+--
+-- Name: streaming_datasource_aggr_table fka10ynseqfca31fvcy6t1b1ion; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.streaming_datasource_aggr_table
+    ADD CONSTRAINT fka10ynseqfca31fvcy6t1b1ion FOREIGN KEY (id) REFERENCES public.streaming_datasource(id);
+
+
+--
+-- Name: lightning_user fkaj0n0cn1vemndu73roea3cd30; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_user
+    ADD CONSTRAINT fkaj0n0cn1vemndu73roea3cd30 FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_data_mart_to_role fkakmgs6t2x0gbomuu5v6j7pdxm; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_mart_to_role
+    ADD CONSTRAINT fkakmgs6t2x0gbomuu5v6j7pdxm FOREIGN KEY (fk_data_mart_id) REFERENCES public.data_mart(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_change_history fkb1jyrly61dpys63vwrehait9s; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_change_history
+    ADD CONSTRAINT fkb1jyrly61dpys63vwrehait9s FOREIGN KEY (fk_datasource_id) REFERENCES public.datasource(id) ON DELETE CASCADE;
+
+
+--
+-- Name: rest_oauth fkb52l3waym5s108a3r5930l62j; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.rest_oauth
+    ADD CONSTRAINT fkb52l3waym5s108a3r5930l62j FOREIGN KEY (rest_table_id) REFERENCES public.lightning_rest_table(id);
+
+
+--
+-- Name: assigned_data_source_to_user fkb6cdquamuo9x0sur7sw3br44c; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_source_to_user
+    ADD CONSTRAINT fkb6cdquamuo9x0sur7sw3br44c FOREIGN KEY (fk_lightning_user_id) REFERENCES public.lightning_user(email) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_database fkb8hxvbfgq6sahkc6koq0cnkl1; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_database
+    ADD CONSTRAINT fkb8hxvbfgq6sahkc6koq0cnkl1 FOREIGN KEY (fk_data_warehouse_id) REFERENCES public.data_warehouse(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_pipeline fkbbj1x9rpwk9dhctyu6jykjwyt; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_pipeline
+    ADD CONSTRAINT fkbbj1x9rpwk9dhctyu6jykjwyt FOREIGN KEY (fk_pipeline_id) REFERENCES public.pipeline_container(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_sink fkbk3cc01guobguli5ddsjrplb8; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_sink
+    ADD CONSTRAINT fkbk3cc01guobguli5ddsjrplb8 FOREIGN KEY (id) REFERENCES public.pipeline_node(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_option fkbolvnkxnrb88w4e2qjdcr6ubd; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_option
+    ADD CONSTRAINT fkbolvnkxnrb88w4e2qjdcr6ubd FOREIGN KEY (fk_datasource_id) REFERENCES public.datasource(id) ON DELETE CASCADE;
+
+
+--
+-- Name: schemastore_view_cache_strategy fkc294yruia1n7489i10022ln7w; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.schemastore_view_cache_strategy
+    ADD CONSTRAINT fkc294yruia1n7489i10022ln7w FOREIGN KEY (fk_schemastore_view_id) REFERENCES public.schema_store_view(id);
+
+
+--
+-- Name: assigned_database_to_user fkd41c25x0mfe4bt0mv4cpjdr3l; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_database_to_user
+    ADD CONSTRAINT fkd41c25x0mfe4bt0mv4cpjdr3l FOREIGN KEY (fk_lightning_user_id) REFERENCES public.lightning_user(email) ON DELETE CASCADE;
+
+
+--
+-- Name: offsite_cache_strategy fkdsdpqs50g1vd96l9tyxxo55xs; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.offsite_cache_strategy
+    ADD CONSTRAINT fkdsdpqs50g1vd96l9tyxxo55xs FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_relation fke44ni4pp818sphc8xw089j6cj; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation
+    ADD CONSTRAINT fke44ni4pp818sphc8xw089j6cj FOREIGN KEY (fk_datasource_id) REFERENCES public.datasource(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_data_mart fke8j6tqxx8fc17c6he66sogt6r; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_data_mart
+    ADD CONSTRAINT fke8j6tqxx8fc17c6he66sogt6r FOREIGN KEY (fk_data_warehouse_id) REFERENCES public.data_warehouse(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_schema_store_view_to_role fkebk80kofje2sygtkcmyiew11o; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_schema_store_view_to_role
+    ADD CONSTRAINT fkebk80kofje2sygtkcmyiew11o FOREIGN KEY (fk_lightning_role_id) REFERENCES public.lightning_role(id) ON DELETE CASCADE;
+
+
+--
+-- Name: data_mart_table fkek55hj5nsdvnhwluxcbywq53u; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart_table
+    ADD CONSTRAINT fkek55hj5nsdvnhwluxcbywq53u FOREIGN KEY (fk_data_mart_id) REFERENCES public.data_mart(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lightning_database fkekplqqdhvth7js7bdirt6d5ut; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_database
+    ADD CONSTRAINT fkekplqqdhvth7js7bdirt6d5ut FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: schema_store_view_schema fkeu314vpcscs3jvx3vd3g2krgh; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.schema_store_view_schema
+    ADD CONSTRAINT fkeu314vpcscs3jvx3vd3g2krgh FOREIGN KEY (fk_schema_store_view_id) REFERENCES public.schema_store_view(id);
+
+
+--
+-- Name: adaptive_offsite_cache_policy fkf3wxqkgki3plk64rlod2ki6ba; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.adaptive_offsite_cache_policy
+    ADD CONSTRAINT fkf3wxqkgki3plk64rlod2ki6ba FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_projection fkf5ivv4kohdl5ukj27n1lk9xtj; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_projection
+    ADD CONSTRAINT fkf5ivv4kohdl5ukj27n1lk9xtj FOREIGN KEY (id) REFERENCES public.pipeline_node(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_schema_store_view_to_role fkf5u5r9xowhfpuhongqmsqhjb7; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_schema_store_view_to_role
+    ADD CONSTRAINT fkf5u5r9xowhfpuhongqmsqhjb7 FOREIGN KEY (fk_schema_store_view_id) REFERENCES public.schema_store_view(id);
+
+
+--
+-- Name: assigned_dw_data_source fkfhfmhwm1wsdxbul0unjt6fqa7; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_data_source
+    ADD CONSTRAINT fkfhfmhwm1wsdxbul0unjt6fqa7 FOREIGN KEY (fk_data_source_id) REFERENCES public.datasource(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_data_source_to_role fkfkdp1sq1xr3a1yly6fg9renpr; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_source_to_role
+    ADD CONSTRAINT fkfkdp1sq1xr3a1yly6fg9renpr FOREIGN KEY (fk_lightning_role_id) REFERENCES public.lightning_role(id) ON DELETE CASCADE;
+
+
+--
+-- Name: granted_user fkfxxxdvp866r3ri06amu33fk34; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.granted_user
+    ADD CONSTRAINT fkfxxxdvp866r3ri06amu33fk34 FOREIGN KEY (fk_lightning_user_email) REFERENCES public.lightning_user(email);
+
+
+--
+-- Name: schemastore_view_cache_strategy fkg2l0y0labwtn1a0c8yb9xpo9w; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.schemastore_view_cache_strategy
+    ADD CONSTRAINT fkg2l0y0labwtn1a0c8yb9xpo9w FOREIGN KEY (id) REFERENCES public.offsite_cache_strategy(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_role fkgj12yr5yjeidep3d3bs94xgtx; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_role
+    ADD CONSTRAINT fkgj12yr5yjeidep3d3bs94xgtx FOREIGN KEY (fk_lightning_role_name) REFERENCES public.lightning_role(id);
+
+
+--
+-- Name: assigned_dw_role fkhec6cjd16mllt7gbkix690e9f; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_role
+    ADD CONSTRAINT fkhec6cjd16mllt7gbkix690e9f FOREIGN KEY (fk_lightning_role_name) REFERENCES public.lightning_role(id) ON DELETE CASCADE;
+
+
+--
+-- Name: imported_certificates fkhu350snkxpah70hb6g0y1qo10; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.imported_certificates
+    ADD CONSTRAINT fkhu350snkxpah70hb6g0y1qo10 FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_node_property fkiltg3a76s2t04tpnocm7trmmk; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_node_property
+    ADD CONSTRAINT fkiltg3a76s2t04tpnocm7trmmk FOREIGN KEY (fk_pipeline_node_id) REFERENCES public.pipeline_node(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_join fkj587jto86ant0tswshbr2fty; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_join
+    ADD CONSTRAINT fkj587jto86ant0tswshbr2fty FOREIGN KEY (id) REFERENCES public.pipeline_node(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_set fkjd6igfqltntg8oi1dgmvr8bb2; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_set
+    ADD CONSTRAINT fkjd6igfqltntg8oi1dgmvr8bb2 FOREIGN KEY (id) REFERENCES public.pipeline_node(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_data_mart_to_role fkjoffxqdfdh460bhftxd8pyxtm; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_mart_to_role
+    ADD CONSTRAINT fkjoffxqdfdh460bhftxd8pyxtm FOREIGN KEY (fk_lightning_role_id) REFERENCES public.lightning_role(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_cache_strategy fkjpg3vt1p1en8takw73bimt495; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_cache_strategy
+    ADD CONSTRAINT fkjpg3vt1p1en8takw73bimt495 FOREIGN KEY (fk_datasource_relation_id) REFERENCES public.datasource_relation(id);
+
+
+--
+-- Name: granted_role fkjs2rai9lkty4d7enayyvmers0; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.granted_role
+    ADD CONSTRAINT fkjs2rai9lkty4d7enayyvmers0 FOREIGN KEY (fk_lightning_role_name) REFERENCES public.lightning_role(id);
+
+
+--
+-- Name: offsite_cache_history fkkkgv04qabth2jspk9qrrgnrvg; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.offsite_cache_history
+    ADD CONSTRAINT fkkkgv04qabth2jspk9qrrgnrvg FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_relation_table fkknusdtq73omm0nbtil7f6nplj; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_table
+    ADD CONSTRAINT fkknusdtq73omm0nbtil7f6nplj FOREIGN KEY (id) REFERENCES public.datasource_relation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_relation_tag fkkrd4solw3fx7ltp22cv04ajkw; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_tag
+    ADD CONSTRAINT fkkrd4solw3fx7ltp22cv04ajkw FOREIGN KEY (fk_datasource_relation_id) REFERENCES public.datasource_relation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_relation_schema_tag fkkslvcnqf2lssyt5tvglec3hnx; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_schema_tag
+    ADD CONSTRAINT fkkslvcnqf2lssyt5tvglec3hnx FOREIGN KEY (fk_datasource_relation_schema_id) REFERENCES public.datasource_relation_schema(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_schema_store_view fklg27hoxflq4ly8r4frx1pq0mj; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_schema_store_view
+    ADD CONSTRAINT fklg27hoxflq4ly8r4frx1pq0mj FOREIGN KEY (fk_schema_store_view_id) REFERENCES public.schema_store_view(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_streaming fklqydlceedakuvyv4axrovs087; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_streaming
+    ADD CONSTRAINT fklqydlceedakuvyv4axrovs087 FOREIGN KEY (fk_data_warehouse_id) REFERENCES public.data_warehouse(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_pipeline_to_role fkls7e8dbhj3697qxrkq8fs4prs; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_pipeline_to_role
+    ADD CONSTRAINT fkls7e8dbhj3697qxrkq8fs4prs FOREIGN KEY (fk_pipeline_container_id) REFERENCES public.pipeline_container(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_datasource fkm22a1v6k6qs8596yrhxejc3fp; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_datasource
+    ADD CONSTRAINT fkm22a1v6k6qs8596yrhxejc3fp FOREIGN KEY (id) REFERENCES public.pipeline_node(id) ON DELETE CASCADE;
+
+
+--
+-- Name: streaming_datasource fkmly63pef09tsu3n625tp19w2q; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.streaming_datasource
+    ADD CONSTRAINT fkmly63pef09tsu3n625tp19w2q FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_relation_column_stat fkmnsbc0p0nneyuph1eifavv00g; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_column_stat
+    ADD CONSTRAINT fkmnsbc0p0nneyuph1eifavv00g FOREIGN KEY (fk_datasource_relation_schema_id) REFERENCES public.datasource_relation_schema(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_pipeline_to_role fkmslqbcy4gqkmd0sr9odvmjdu; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_pipeline_to_role
+    ADD CONSTRAINT fkmslqbcy4gqkmd0sr9odvmjdu FOREIGN KEY (fk_lightning_role_id) REFERENCES public.lightning_role(id) ON DELETE CASCADE;
+
+
+--
+-- Name: data_mart_table_association fkn4vxlhwqw2wsfnhswx05tw5lj; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_mart_table_association
+    ADD CONSTRAINT fkn4vxlhwqw2wsfnhswx05tw5lj FOREIGN KEY (fk_data_mart_id) REFERENCES public.data_mart(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_streaming fko0ge64ummobe43mi13hgjioa8; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_streaming
+    ADD CONSTRAINT fko0ge64ummobe43mi13hgjioa8 FOREIGN KEY (fk_streaming_datasource_id) REFERENCES public.streaming_datasource(id) ON DELETE CASCADE;
+
+
+--
+-- Name: oauth fko0uaceum9wtpsj9u30ncfubn5; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.oauth
+    ADD CONSTRAINT fko0uaceum9wtpsj9u30ncfubn5 FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: streaming_datasource_raw_table fko3oyeoi9beeo52tr2b7m6ukrn; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.streaming_datasource_raw_table
+    ADD CONSTRAINT fko3oyeoi9beeo52tr2b7m6ukrn FOREIGN KEY (id) REFERENCES public.streaming_datasource(id);
+
+
+--
+-- Name: assigned_data_mart_to_user fko8f2gvjccv26blxyca1i6t7sa; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_data_mart_to_user
+    ADD CONSTRAINT fko8f2gvjccv26blxyca1i6t7sa FOREIGN KEY (fk_data_mart_id) REFERENCES public.data_mart(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_relation_part fkovqb6p59di4ttykwbhuj6o74u; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_part
+    ADD CONSTRAINT fkovqb6p59di4ttykwbhuj6o74u FOREIGN KEY (fk_datasource_relation_id) REFERENCES public.datasource_relation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_user fkp9297cqqe1nqqvpjmgxytgvwb; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_user
+    ADD CONSTRAINT fkp9297cqqe1nqqvpjmgxytgvwb FOREIGN KEY (fk_lightning_user_email) REFERENCES public.lightning_user(email) ON DELETE CASCADE;
+
+
+--
+-- Name: organisation_status fkp94g9khraus4wr153cl2id1t1; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.organisation_status
+    ADD CONSTRAINT fkp94g9khraus4wr153cl2id1t1 FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: datasource_relation_view fkpbfq5cv8pmnm2stae5r5lu95n; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_view
+    ADD CONSTRAINT fkpbfq5cv8pmnm2stae5r5lu95n FOREIGN KEY (id) REFERENCES public.datasource_relation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: data_warehouse_history fkq7kbbh203gp1tu44g6ni1iajj; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.data_warehouse_history
+    ADD CONSTRAINT fkq7kbbh203gp1tu44g6ni1iajj FOREIGN KEY (fk_data_warehouse_id) REFERENCES public.data_warehouse(id);
+
+
+--
+-- Name: assigned_dw_data_source fkqa4fsslubp29bnaf04c9o1frf; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_data_source
+    ADD CONSTRAINT fkqa4fsslubp29bnaf04c9o1frf FOREIGN KEY (fk_data_warehouse_id) REFERENCES public.data_warehouse(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_user fkqdfke8ykys2jnt8mmlpb8kl6r; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_user
+    ADD CONSTRAINT fkqdfke8ykys2jnt8mmlpb8kl6r FOREIGN KEY (fk_data_warehouse_id) REFERENCES public.data_warehouse(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_schema_store_view_to_user fkqkkrnads913wgu690d510ypat; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_schema_store_view_to_user
+    ADD CONSTRAINT fkqkkrnads913wgu690d510ypat FOREIGN KEY (fk_schema_store_view_id) REFERENCES public.schema_store_view(id);
+
+
+--
+-- Name: lightning_database_option fkqlhbsl5j4rt67uqqdd3gg51dx; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_database_option
+    ADD CONSTRAINT fkqlhbsl5j4rt67uqqdd3gg51dx FOREIGN KEY (fk_lightning_database_id) REFERENCES public.lightning_database(id);
+
+
+--
+-- Name: assigned_pipeline_to_user fkrgl067q408yomj14xsjt1w5jb; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_pipeline_to_user
+    ADD CONSTRAINT fkrgl067q408yomj14xsjt1w5jb FOREIGN KEY (fk_pipeline_container_id) REFERENCES public.pipeline_container(id) ON DELETE CASCADE;
+
+
+--
+-- Name: entity_limit fks0prfpc3sh8wv23r90b5fc48u; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.entity_limit
+    ADD CONSTRAINT fks0prfpc3sh8wv23r90b5fc48u FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_role fks9rkr4j0gdj2q7nv00ux6kh7h; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_role
+    ADD CONSTRAINT fks9rkr4j0gdj2q7nv00ux6kh7h FOREIGN KEY (fk_lightning_user_name) REFERENCES public.lightning_user(email);
+
+
+--
+-- Name: assigned_database_to_role fksueku8s6cs2nxk6lnhmynsey5; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_database_to_role
+    ADD CONSTRAINT fksueku8s6cs2nxk6lnhmynsey5 FOREIGN KEY (fk_lightning_role_id) REFERENCES public.lightning_role(id) ON DELETE CASCADE;
+
+
+--
+-- Name: pipeline_simple_dq_rule fkt0rnld1vwaicdylsp5jthb3iw; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_simple_dq_rule
+    ADD CONSTRAINT fkt0rnld1vwaicdylsp5jthb3iw FOREIGN KEY (fk_pipeline_simple_dq_id) REFERENCES public.pipeline_simple_dq(id) ON DELETE CASCADE;
+
+
+--
+-- Name: ldap_configuration fkt5pdpi2d7xoy6lmq4ounbigbo; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.ldap_configuration
+    ADD CONSTRAINT fkt5pdpi2d7xoy6lmq4ounbigbo FOREIGN KEY (fk_organisation_id) REFERENCES public.organisation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assigned_dw_data_mart fktcabov0kc4bjnerv8k9yhw1a2; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_data_mart
+    ADD CONSTRAINT fktcabov0kc4bjnerv8k9yhw1a2 FOREIGN KEY (fk_data_mart_id) REFERENCES public.data_mart(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lightning_rest_table fktgr2b454wrqs43c48vffjyv92; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_rest_table
+    ADD CONSTRAINT fktgr2b454wrqs43c48vffjyv92 FOREIGN KEY (fk_lightning_database_id) REFERENCES public.lightning_database(id);
+
+
+--
+-- Name: datasource_relation_column_histogram fktlpyqoye3q3ikaqmmy3ubr88u; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.datasource_relation_column_histogram
+    ADD CONSTRAINT fktlpyqoye3q3ikaqmmy3ubr88u FOREIGN KEY (fk_datasource_relation_column_stat_id) REFERENCES public.datasource_relation_column_stat(id);
+
+
+--
+-- Name: pipeline_node fktnx2g01mn03335oxlg2iy3492; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.pipeline_node
+    ADD CONSTRAINT fktnx2g01mn03335oxlg2iy3492 FOREIGN KEY (fk_pipeline_relation_id) REFERENCES public.pipeline_relation(id) ON DELETE CASCADE;
+
+
+--
+-- Name: lightning_rest_table_option fkwynw1f51n1dii7c2sd3yua42; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.lightning_rest_table_option
+    ADD CONSTRAINT fkwynw1f51n1dii7c2sd3yua42 FOREIGN KEY (fk_datasource_rest_relation_id) REFERENCES public.lightning_rest_table(id);
+
+
+--
+-- Name: assigned_dw_database fkxpfjbmjtiryw2t0g89syp1e7; Type: FK CONSTRAINT; Schema: public; Owner: rds_admin
+--
+
+ALTER TABLE ONLY public.assigned_dw_database
+    ADD CONSTRAINT fkxpfjbmjtiryw2t0g89syp1e7 FOREIGN KEY (fk_lightning_database_id) REFERENCES public.lightning_database(id) ON DELETE CASCADE;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
